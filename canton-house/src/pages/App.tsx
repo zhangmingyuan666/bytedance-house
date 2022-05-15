@@ -4,6 +4,13 @@ import hyRequest from '@/service'
 import { observer } from 'mobx-react-lite'
 import { useStores } from '@/store'
 
+function App() {
+  const store = useStores()
+  return <div className="w-1 h-1">123</div>
+}
+
+export default observer(App)
+
 hyRequest
   .request({
     url: '/playlist/hot',
@@ -26,10 +33,3 @@ hyRequest
   .catch((err) => {
     console.log(err)
   })
-
-function App() {
-  const store = useStores()
-  return <div className="App">123</div>
-}
-
-export default observer(App)

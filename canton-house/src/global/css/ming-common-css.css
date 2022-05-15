@@ -12,9 +12,17 @@
   position: relative;
 }
 
-.postion-center{
+.postion-center {
   position: absolute;
   left: 50%;
   height: 50%;
   transform: translate(-50%, -50%);
+}
+
+.w-1 {
+  width: 100%;
+}
+
+.h-1 {
+  height: 100%;
 }

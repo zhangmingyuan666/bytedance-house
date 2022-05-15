@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@arco-design/web-react": "^2.33.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
@@ -29,7 +30,9 @@
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
+    "eject": "react-app-rewired eject",
+    "lint": "eslint . --ext .ts && eslint . --ext .tsx",
+    "lint:fix": "eslint --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -49,18 +52,26 @@
       "last 1 safari version"
     ]
   },
+  "lint-staged": {
+    "*.{jsx,ts,tsx,js}": [
+      "node -v",
+      "npm run lint:fix",
+      "prettier --write "
+    ]
+  },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
   },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
-    ]
-  },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
     "customize-cra": "^1.0.0",
+    "eslint": "^8.15.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^12.4.1",
     "react-app-rewired": "^2.2.1"
   }
 }
