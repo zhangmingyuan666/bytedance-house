@@ -27,16 +27,19 @@
     "file-loader": "^6.2.0",
     "fs-extra": "^10.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^8.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
+    "lint-staged": "^12.4.1",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^7.0.1",
+    "prettier": "^2.6.2",
     "prompts": "^2.4.2",
     "react": "^18.1.0",
     "react-app-polyfill": "^3.0.0",
@@ -60,7 +63,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "prettier": "prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -134,6 +138,16 @@
   "babel": {
     "presets": [
       "react-app"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
     ]
   }
 }
