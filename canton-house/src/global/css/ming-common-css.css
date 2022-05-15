@@ -1,0 +1,20 @@
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.postion-absolute {
+  position: absolute;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.postion-center{
+  position: absolute;
+  left: 50%;
+  height: 50%;
+  transform: translate(-50%, -50%);
+}

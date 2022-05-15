@@ -29,7 +29,6 @@ hyRequest
 
 function App() {
   const store = useStores()
-  console.log(store)
   return <div className="App">123</div>
 }
 
