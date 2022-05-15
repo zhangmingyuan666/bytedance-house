@@ -6,7 +6,7 @@ import type { HyRequestInterceptors, HyRequestConfig } from './type'
 
 const DEFAULT_LOADING = true
 
-class HyRequest {
+class MyRequest {
   instance: AxiosInstance
   interceptors?: HyRequestInterceptors
   // loading?: LoadingInstance
@@ -122,4 +122,4 @@ class HyRequest {
   }
 }
 
-export default HyRequest
+export default MyRequest
