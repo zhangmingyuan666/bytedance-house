@@ -15,7 +15,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:prettier": "prettier --check \"src/**/*\" --end-of-line auto",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -33,6 +35,22 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "enquirer": "^2.3.6",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.0",
+    "lint-staged": "^12.4.1",
+    "prettier": "^2.6.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "prettier --write",
+      "eslint",
+      "git add"
     ]
   }
 }
