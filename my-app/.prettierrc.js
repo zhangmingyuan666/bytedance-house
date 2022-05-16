@@ -4,9 +4,9 @@ module.exports = {
   //制表符宽度
   tabWidth: 2,
   //使用分号
-  semi: true,
+  semi: false,
   //单引号
-  singleQuote: false,
+  singleQuote: true,
   //行末尾标识
   endOfLine: "auto",
   //对象中的空格
