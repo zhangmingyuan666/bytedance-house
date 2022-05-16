@@ -19,8 +19,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "extends": "./paths.json"
   },
+  "extends": "./paths.json",
   "include": [
     "src"
   ]

@@ -6,6 +6,7 @@ import { useStores } from '@/store'
 
 function App() {
   const store = useStores()
+  console.log(store)
   return <div className="w-1 h-1">123</div>
 }
 
