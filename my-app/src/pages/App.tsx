@@ -1,36 +1,48 @@
 import React from 'react';
 import './App.css';
-import hyRequest from '@/service'
-import { observer } from 'mobx-react-lite'
-import { useStores } from '@/store'
+import { BrowserRouter as Router, useRoutes } from 'react-router-dom'
+import { routes } from '@/router'
 
-function App() {
-  const store = useStores()
-  console.log(store)
-  return <div className="w-1 h-1">123</div>
+// createroute 创建路由
+function RenderRoutes() {
+  const element = useRoutes(routes)
+  console.log(element)
+  return element
 }
 
-export default observer(App)
+function App() {
+  return (
+    <div className="h_1 w_1">
+      <Router>
+        <RenderRoutes></RenderRoutes>
+      </Router>
+    </div>
+  )
+}
 
-hyRequest
-  .request({
-    url: '/playlist/hot',
-    //showLoading: false,
-    interceptors: {
-      requestInterceptors: (config) => {
-        console.log('单独请求的config')
-        return config
-      },
-      responseInterceptors: (res) => {
-        console.log('单独相应的res')
-        return res
-      }
-    }
-  })
-  .then((res) => {
-    console.log(res)
-    //console.log(res.code)
-  })
-  .catch((err) => {
-    console.log(err)
-  })
+export default App
+
+
+//import hyRequest from '@/service'
+// hyRequest
+//   .request({
+//     url: '/playlist/hot',
+//     //showLoading: false,
+//     interceptors: {
+//       requestInterceptors: (config) => {
+//         console.log('单独请求的config')
+//         return config
+//       },
+//       responseInterceptors: (res) => {
+//         console.log('单独相应的res')
+//         return res
+//       }
+//     }
+//   })
+//   .then((res) => {
+//     console.log(res)
+//     //console.log(res.code)
+//   })
+//   .catch((err) => {
+//     console.log(err)
+//   })
