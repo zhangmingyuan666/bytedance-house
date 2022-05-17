@@ -2,24 +2,24 @@ import * as React from 'react'
 import { Menu, Message } from '@arco-design/web-react'
 import { IconBytedanceColor } from '@arco-design/web-react/icon'
 import menuConfig from '@/global/menu-list'
-import { useNavigate } from 'react-router-dom'
+import useRouter from '@/hooks/navigate-hooks'
 
 const MenuItem = Menu.Item
 const SubMenu = Menu.SubMenu
 
 const MainSider: React.FC = () => {
-  const { defaultOpenKeys, defaultSelectedKeys, menuList } = menuConfig
-  const navigate = useNavigate()
-  const handleNavigate = (url: string) => {
-    console.log(url)
-    navigate('/main' + url)
-  }
+  const config = { ...menuConfig }
+  // 此处是基本的配置
+  const { defaultOpenKeys, menuList } = config
+  const [routerTo, getDefaultSelectedKeys] = useRouter('/main')
+  // 在此处找到默认的key
+  const key = getDefaultSelectedKeys()
   //此处渲染menu
   return (
     <div>
       <Menu
         defaultOpenKeys={defaultOpenKeys}
-        defaultSelectedKeys={defaultSelectedKeys}
+        defaultSelectedKeys={key}
         onClickMenuItem={key => Message.info({ content: `You select ${key}`, showIcon: true })}
         style={{ width: '100%' }}
       >
@@ -31,7 +31,7 @@ const MainSider: React.FC = () => {
           const { type, icon: Icon, text, key, url } = listItem
           if (type === 1) {
             return (
-              <MenuItem key={key} onClick={() => handleNavigate(url!)}>
+              <MenuItem key={key} onClick={() => routerTo(url!)}>
                 <Icon></Icon>
                 {text}
               </MenuItem>
@@ -50,7 +50,7 @@ const MainSider: React.FC = () => {
                 {listItem.children?.map(listChild => {
                   const { icon: Icon, key, text, url } = listChild
                   return (
-                    <MenuItem key={key} onClick={() => handleNavigate(url!)}>
+                    <MenuItem key={key} onClick={() => routerTo(url!)}>
                       <Icon />
                       {text}
                     </MenuItem>
@@ -59,7 +59,7 @@ const MainSider: React.FC = () => {
               </SubMenu>
             )
           } else {
-            throw Error('type error')
+            throw Error('menu type error')
           }
         })}
       </Menu>

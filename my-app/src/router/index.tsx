@@ -4,7 +4,8 @@ import NotFound from '@/pages/not-found'
 import Login from '@/pages/login'
 import MainDrag from '@/pages/main/drag-scene'
 import MainDragHistory from '@/pages/main/drag-history'
-
+import MainAboutUs from '@/pages/main/about-us'
+import MainCallOnline from '@/pages/main/call-online'
 export const routes: RouteObject[] = [
   {
     path: '/',
@@ -15,9 +16,11 @@ export const routes: RouteObject[] = [
     ],
   },
   {
-    path: '/main/*',
+    path: '/main',
     element: <Main />,
     children: [
+      //此处用于配置进入页面后的默认url
+      { path: '', element: <Navigate to="/main/about-us" /> }, // Redirect 重定向！
       {
         path: 'drag',
         element: <MainDrag></MainDrag>,
@@ -25,6 +28,14 @@ export const routes: RouteObject[] = [
       {
         path: 'drag-history',
         element: <MainDragHistory></MainDragHistory>,
+      },
+      {
+        path: 'about-us',
+        element: <MainAboutUs></MainAboutUs>,
+      },
+      {
+        path: 'call-online',
+        element: <MainCallOnline></MainCallOnline>,
       },
     ],
   },

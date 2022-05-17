@@ -6,7 +6,7 @@ import { routes } from '@/router'
 // createroute 创建路由
 function RenderRoutes() {
   const element = useRoutes(routes)
-  console.log(element)
+  //console.log(element)
   return element
 }
 

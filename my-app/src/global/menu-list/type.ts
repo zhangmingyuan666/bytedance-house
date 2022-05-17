@@ -1,6 +1,6 @@
 export interface IMenu {
   defaultOpenKeys: string[] //默认打开的一级菜单
-  defaultSelectedKeys: string[] // 默认进入的页面
+  defaultSelectedKeys: string[] // 默认进入的页面,
   menuList: IMenuList[]
 }
 

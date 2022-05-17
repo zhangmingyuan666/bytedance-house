@@ -25,19 +25,18 @@ const Main: React.FC = () => {
         <Sider collapsed={collapsed} collapsible trigger={null} breakpoint="xl">
           <MainSider />
         </Sider>
-        <Layout>
-          <Header>
-            <MainHeader collapsed={collapsed} changeCollapsed={e => triggerCollapsed(e)} />
-          </Header>
-          <Layout style={{ padding: '0 24px' }}>
-            <Content>
-              <Outlet></Outlet>
-            </Content>
-            <Footer>
-              <MainFooter />
-            </Footer>
+        <div className="w-1">
+          <Layout>
+            <Header>
+              <MainHeader collapsed={collapsed} changeCollapsed={e => triggerCollapsed(e)} />
+            </Header>
+            <Layout>
+              <Content>
+                <Outlet></Outlet>
+              </Content>
+            </Layout>
           </Layout>
-        </Layout>
+        </div>
       </Layout>
     </div>
   )
