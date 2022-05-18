@@ -19,7 +19,26 @@ code {
 
 
 @layer components {
+  .hover-filter {
+    @apply transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:filter hover:blur-lg bg-clip-text
+  }
   .title {
-    @apply text-center mb-8 transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:filter hover:blur-lg bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500
+    @apply hover-filter text-center mb-8  text-transparent bg-gradient-to-r from-green-400 to-blue-500
+  }
+
+  .ming-border {
+    @apply border-2 border-gray-100 hover:border-blue-500	 transition-all rounded-xl
+  }
+
+  .ming-divider {
+    @apply divide-y-2 border-gray-100 divide-dashed
+  }
+
+  .ming-center {
+    @apply grid place-items-center h-screen
+  }
+
+  .is-over-max-width {
+    @apply xl:mx-auto
   }
 }

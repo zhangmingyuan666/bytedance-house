@@ -4,7 +4,7 @@ import DragJSON from './drag-json'
 
 const DragRight: React.FC = () => {
   return (
-    <div className="flex-1" style={{ minWidth: '300px' }}>
+    <div className="flex-1">
       <DragController />
       <DragJSON />
     </div>

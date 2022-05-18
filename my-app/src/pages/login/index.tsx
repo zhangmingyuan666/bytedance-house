@@ -1,3 +1,10 @@
+/*
+ * @Author: Ming
+ * @Date: 2022-05-16 17:05:55
+ * @LastEditors: Ming
+ * @LastEditTime: 2022-05-18 16:30:20
+ * @Description: 请填写简介
+ */
 import * as React from 'react'
 import { Form, Input, Button, Checkbox } from '@arco-design/web-react'
 import { useNavigate } from 'react-router-dom'
@@ -15,7 +22,7 @@ const Login: React.FC = () => {
 
   return (
     // <div className="flex-center h-1 w-1 flex-dir-col">
-    <div className="grid place-items-center h-screen">
+    <div className="ming-center">
       <div className="shadow-inner p-10 rounded-3xl border-2">
         <h1 className="title">Login</h1>
         <div>

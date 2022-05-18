@@ -1,3 +1,10 @@
+/*
+ * @Author: Ming
+ * @Date: 2022-05-16 12:20:55
+ * @LastEditors: Ming
+ * @LastEditTime: 2022-05-18 23:41:06
+ * @Description: 请填写简介
+ */
 import React from 'react'
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom'
 import { routes } from '@/router'
@@ -11,7 +18,7 @@ function RenderRoutes() {
 
 function App() {
   return (
-    <div className="h-screen w-screenl">
+    <div className="h-screen" style={{ maxWidth: '2400px', margin: '0 auto' }}>
       <Router>
         <RenderRoutes></RenderRoutes>
       </Router>
