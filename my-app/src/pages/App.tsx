@@ -1,5 +1,4 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom'
 import { routes } from '@/router'
 
@@ -12,7 +11,7 @@ function RenderRoutes() {
 
 function App() {
   return (
-    <div className="h_1 w_1">
+    <div className="h-screen w-screenl">
       <Router>
         <RenderRoutes></RenderRoutes>
       </Router>
@@ -21,7 +20,6 @@ function App() {
 }
 
 export default App
-
 
 //import hyRequest from '@/service'
 // hyRequest

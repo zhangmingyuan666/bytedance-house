@@ -1,6 +1,8 @@
 @import url(@/global/css/base.css);
 @import url(@/global/css/ming-common-css.css);
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -13,4 +15,11 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+@layer components {
+  .title {
+    @apply text-center mb-8 transition duration-1000 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:filter hover:blur-lg bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500
+  }
 }

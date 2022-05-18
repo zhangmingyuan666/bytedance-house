@@ -14,26 +14,29 @@ const Login: React.FC = () => {
   }
 
   return (
-    <div className="flex-center h-1 w-1 flex-dir-col">
-      <h1>Login</h1>
-      <div>
-        <Form style={{ width: 600 }} form={form} onSubmit={v => submit(v)}>
-          <FormItem label="Username" field="username">
-            <Input placeholder="please enter your username..." />
-          </FormItem>
-          <FormItem label="Post" field="post">
-            <Input placeholder="please enter your post..." />
-          </FormItem>
-          <FormItem
-            wrapperCol={{
-              offset: 5,
-            }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </FormItem>
-        </Form>
+    // <div className="flex-center h-1 w-1 flex-dir-col">
+    <div className="grid place-items-center h-screen">
+      <div className="shadow-inner p-10 rounded-3xl border-2">
+        <h1 className="title">Login</h1>
+        <div>
+          <Form style={{ width: 600 }} form={form} onSubmit={v => submit(v)}>
+            <FormItem label="Username" field="username">
+              <Input placeholder="please enter your username..." />
+            </FormItem>
+            <FormItem label="Post" field="post">
+              <Input placeholder="please enter your post..." />
+            </FormItem>
+            <FormItem
+              wrapperCol={{
+                offset: 5,
+              }}
+            >
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </FormItem>
+          </Form>
+        </div>
       </div>
     </div>
   )
