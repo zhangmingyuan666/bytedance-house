@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 12:17:17
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-18 22:30:43
+ * @LastEditTime: 2022-05-19 11:08:03
  * @Description: 这里是drag专用的hooks
  */
 import * as React from 'react'
@@ -19,6 +19,8 @@ import { useStores } from '@/store'
 const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
   const store = useStores()
   const { dragStore } = store
+
+  // 用于标记点击的时候相对于父亲节点的坐标
   const [clickPosition, setClickPosition] = React.useState({
     x: 0,
     y: 0,
@@ -26,27 +28,23 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
 
   // 这是捡起组件的时候
   const onDragStart = (e: React.DragEvent, id?: string) => {
-    //当前组件相对于父组件的位置
+    //当前组件相对于页面的的位置
     const { offsetTop: containerTop, offsetLeft: containerLeft } = curRef.current!
-    console.log(curRef.current)
-    console.log(containerLeft)
-    console.log(containerTop)
     //指针的位置
     let { clientX, clientY } = e
 
     //如果id不存在的情况下
     let x = clientX - containerLeft
     let y = clientY - containerTop
-    console.log(x)
-    console.log(y)
+
     if (id) {
-      //如果id不存在，就说明是从起始位置开始拖动的
-      //指针位置减去盒子距离边界的距离即可
+      //如果id存在，这就说明是已经在canvas中的组件了
       const { x: containerPositionX, y: containerPositionY } = getCanvasContainerPosition()
       x = clientX - (containerPositionX + containerLeft)
       y = clientY - (containerPositionY + containerTop)
+      //如果id不存在，就说明是从起始位置开始拖动的
+      //指针位置减去盒子距离边界的距离即可
     }
-    //如果id存在，这就说明是已经在canvas中的组件了
     setClickPosition(() => ({
       x,
       y,

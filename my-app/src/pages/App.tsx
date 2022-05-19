@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-16 12:20:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-18 23:41:06
+ * @LastEditTime: 2022-05-19 11:50:27
  * @Description: 请填写简介
  */
 import React from 'react'
@@ -18,7 +18,7 @@ function RenderRoutes() {
 
 function App() {
   return (
-    <div className="h-screen" style={{ maxWidth: '2400px', margin: '0 auto' }}>
+    <div className="h-screen" style={{ maxWidth: '2800px', margin: '0 auto' }}>
       <Router>
         <RenderRoutes></RenderRoutes>
       </Router>

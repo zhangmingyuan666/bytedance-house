@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-19 10:37:07
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 10:47:06
+ * @LastEditTime: 2022-05-19 10:51:49
  * @Description: 请填写简介
 -->
 # 本项目指引
@@ -24,7 +24,7 @@
 * 状态库：MobX
 * 前端路由：React-Router-Dom
   前端路由配置文件在@/router/index.ts
-* 网络请求：axios,网络请求的方法已经被封装好了，放在service的ubdex.ts里的类
+* 网络请求：axios,网络请求的方法已经被封装好了，放在service的index.ts里的类
 
 ## 项目怎么run
 看script

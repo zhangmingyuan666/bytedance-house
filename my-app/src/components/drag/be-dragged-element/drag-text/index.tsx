@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:38:21
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-18 19:58:43
+ * @LastEditTime: 2022-05-19 13:48:11
  * @Description: text drag element
  */
 import useDrag from '@/hooks/drag-hooks'
@@ -27,20 +27,8 @@ const DragText: React.FC<AppProps> = ({
 }) => {
   let myTextRef = React.useRef<HTMLDivElement | null>(null)
   const [onDragStart, onDragEnd, onClickChoose] = useDrag(myTextRef, 'text')
-  // let TitleLevel: HTMLHeadingElement = `h${size}`
-  // let color
-  // if (style) {
-  //   color = style.color
-  // }
+
   return (
-    // <div
-    //   ref={myTextRef}
-    //   style={{ width, height, ...style }}
-    //   draggable="true"
-    //   onDragEnd={e => onDragEnd(e, id)}
-    //   onDragStart={e => onDragStart(e, id)}
-    //   onClick={e => onClickChoose(e, id)}
-    // >
     <span
       ref={myTextRef}
       style={{ ...style }}
@@ -48,10 +36,10 @@ const DragText: React.FC<AppProps> = ({
       onDragEnd={e => onDragEnd(e, id)}
       onDragStart={e => onDragStart(e, id)}
       onClick={e => onClickChoose(e, id)}
+      className="w-full h-full"
     >
       {content}
     </span>
-    //</div>
   )
 }
 

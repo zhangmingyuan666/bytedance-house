@@ -1,3 +1,10 @@
+/*
+ * @Author: Ming
+ * @Date: 2022-05-17 15:37:07
+ * @LastEditors: Ming
+ * @LastEditTime: 2022-05-19 11:55:08
+ * @Description: 请填写简介
+ */
 import * as React from 'react'
 import { observer } from 'mobx-react-lite'
 import './index.css'
@@ -7,6 +14,7 @@ const DragCanvas: React.FC = () => {
   const store = useStores()
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
   const dragElementList = [...store.dragStore.resultDragList]
+  const { id: curSelectedId } = store.dragStore.currentDragEle
   // 在canvas节点挂载之后，将这个函数传到mobx中
   const getPosition = () => {
     const { offsetLeft: x, offsetTop: y } = canvasRef.current!
@@ -25,7 +33,7 @@ const DragCanvas: React.FC = () => {
       onDragOver={e => e.preventDefault()}
       ref={canvasRef}
     >
-      <CanvasRenderer dragElementList={dragElementList} />
+      <CanvasRenderer dragElementList={dragElementList} curSelectedId={curSelectedId} />
     </div>
   )
 }

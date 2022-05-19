@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:37:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-18 21:46:00
+ * @LastEditTime: 2022-05-19 14:28:17
  * @Description: 请填写简介
  */
 import useDrag from '@/hooks/drag-hooks'
@@ -29,7 +29,7 @@ const DragImage: React.FC<AppProps> = ({
   return (
     <div
       ref={MyImageRef}
-      style={{ width, height, ...style }}
+      style={{ width, height, ...style, paddingRight: '6px', paddingBottom: '6px' }}
       draggable="true"
       onDragEnd={e => onDragEnd(e, id)}
       onDragStart={e => onDragStart(e, id)}
