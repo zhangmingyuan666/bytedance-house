@@ -2,13 +2,20 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-18 23:38:49
+ * @LastEditTime: 2022-05-19 15:16:07
  * @Description: 请填写简介
  */
 import { makeAutoObservable } from 'mobx'
 import { BASE_DRAG_EMPTY } from './default'
 import { DragType, IDragElement, IPosition } from './type'
 import { switchInitType } from './utils'
+import { transformPositionPxToPercent } from '@/utils/common'
+
+// 用于将position或者width等从px变为百分号
+const transformPosition = (target: number): string => {
+  return transformPositionPxToPercent(500, target)
+}
+
 class Drag {
   currentDragEle: IDragElement = BASE_DRAG_EMPTY // 当前选择的 dragElemt
   resultDragList: IDragElement[] = [] // 所有的DragElment集合
@@ -46,13 +53,15 @@ class Drag {
     //this.curDragElement = DRAG_DEFAULT.BASE_DRAG_EMPTY_ELEMENT
   }
 
-  dragDownElement = (left: string | number, top: string | number, type: DragType) => {
+  dragDownElement = (left: number, top: number, type: DragType) => {
     let nowConfig = switchInitType(type)
+    const leftPercent = transformPosition(left)
+    const topPercent = transformPosition(top)
     const config: IDragElement = {
       ...nowConfig,
       type,
-      left,
-      top,
+      left: leftPercent,
+      top: topPercent,
       id: +new Date() + '',
     }
 
@@ -64,11 +73,13 @@ class Drag {
     this.getExactDragElement(config.id)
   }
 
-  dragDownExistElement = (left: number | string, top: number | string) => {
+  dragDownExistElement = (left: number, top: number) => {
+    const leftPercent = transformPosition(left)
+    const topPercent = transformPosition(top)
     const config = {
       ...this.currentDragEle,
-      left,
-      top,
+      left: leftPercent,
+      top: topPercent,
     }
 
     this.setDragElementConfig(config)

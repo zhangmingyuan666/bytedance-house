@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 18:25:26
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 14:28:33
+ * @LastEditTime: 2022-05-19 18:03:07
  * @Description: 请填写简介
  */
 import { IDragElement } from '@/store/modules/drag-store/type'
@@ -23,16 +23,14 @@ const CanvasRenderer: React.FC<AppProps> = ({ dragElementList, curSelectedId }) 
     <div>
       {dragElementList.map((dragElement: IDragElement) => {
         let { id } = dragElement
-        // if (curSelectedId === id) {
-        //   return (
-        //     <ResizeBox key={id} directions={['right', 'bottom']}>
-        //       <RendererSelector config={dragElement}></RendererSelector>
-        //     </ResizeBox>
-        //   )
-        // } else {
-        //   return <RendererSelector config={dragElement} key={id}></RendererSelector>
-        // }
-        return <RendererSelector config={dragElement} key={id}></RendererSelector>
+
+        return (
+          <RendererSelector
+            config={dragElement}
+            key={id}
+            isSelected={curSelectedId === id ? true : false}
+          ></RendererSelector>
+        )
       })}
     </div>
   )

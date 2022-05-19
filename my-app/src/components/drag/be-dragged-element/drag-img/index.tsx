@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:37:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 14:28:17
+ * @LastEditTime: 2022-05-19 18:09:26
  * @Description: 请填写简介
  */
 import useDrag from '@/hooks/drag-hooks'
@@ -15,6 +15,7 @@ type AppProps = {
   width?: string
   height?: string
   style?: any
+  isSelected?: boolean
 }
 
 const DragImage: React.FC<AppProps> = ({
@@ -23,13 +24,15 @@ const DragImage: React.FC<AppProps> = ({
   width = '200px',
   height = '50px',
   style,
+  isSelected = false,
 }) => {
   let MyImageRef = React.useRef<HTMLDivElement>(null)
   const [onDragStart, onDragEnd, onClickChoose] = useDrag(MyImageRef, 'img')
   return (
     <div
       ref={MyImageRef}
-      style={{ width, height, ...style, paddingRight: '6px', paddingBottom: '6px' }}
+      style={{ width, height, ...style }}
+      className={isSelected ? 'ring-black ring-2' : ''}
       draggable="true"
       onDragEnd={e => onDragEnd(e, id)}
       onDragStart={e => onDragStart(e, id)}

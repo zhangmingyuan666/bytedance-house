@@ -2,12 +2,25 @@
  * @Author: Ming
  * @Date: 2022-05-18 12:17:17
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 11:08:03
+ * @LastEditTime: 2022-05-19 19:30:02
  * @Description: 这里是drag专用的hooks
  */
 import * as React from 'react'
 import { DragType } from '@/store/modules/drag-store/type'
 import { useStores } from '@/store'
+import { transformPositionPercentToPx, isOffside } from '@/utils/common'
+import { Message } from '@arco-design/web-react'
+
+// 此处的target是尺寸
+const transformPosition = (target: string) => {
+  return transformPositionPercentToPx(500, target)
+}
+
+const border = {
+  borderX: 500,
+  borderY: 500,
+}
+
 
 /**
  * @description:
@@ -53,6 +66,9 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
 
   // 这是放下组件的时候
   const onDragEnd = (e: React.DragEvent, id?: string) => {
+    const { width, height } = dragStore.currentDragEle
+    let numberWidth = transformPosition(width)
+    let numberHeight = transformPosition(height)
     //当前点击相对于左上角0,0的位置
     const { x: clickX, y: clickY } = clickPosition
 
@@ -62,9 +78,16 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
     const { x: containerPositionX, y: containerPositionY } = getCanvasContainerPosition()
 
     //最终位置
-    let finalX = clientX - containerPositionX - clickX
-    let finalY = clientY - containerPositionY - clickY
-
+    let finalX = clientX - containerPositionX - clickX // px
+    let finalY = clientY - containerPositionY - clickY // OX
+    console.log('finalX：', finalX)
+    console.log('finalY：', finalY)
+    console.log('beDragedElePositionX:', transformPosition(width))
+    console.log('beDragedElePositionY:', transformPosition(height))
+    if (isOffside([finalX, finalY], [numberWidth, numberHeight], border)) {
+      Message.info('GG!')
+      return
+    }
     if (id) {
       dragStore.removeExactDragElement(id)
       //把这个组件移除掉，并更换成下面定义的新的
