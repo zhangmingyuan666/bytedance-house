@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 15:16:07
+ * @LastEditTime: 2022-05-21 16:43:51
  * @Description: 请填写简介
  */
 import { makeAutoObservable } from 'mobx'
@@ -10,6 +10,7 @@ import { BASE_DRAG_EMPTY } from './default'
 import { DragType, IDragElement, IPosition } from './type'
 import { switchInitType } from './utils'
 import { transformPositionPxToPercent } from '@/utils/common'
+import { nanoid } from 'nanoid'
 
 // 用于将position或者width等从px变为百分号
 const transformPosition = (target: number): string => {
@@ -43,6 +44,10 @@ class Drag {
 
   //设置属性
   //一次设置所有
+  initDragElementConfig = () => {
+    this.setDragElementConfig(BASE_DRAG_EMPTY)
+  }
+
   setDragElementConfig = (config: IDragElement) => {
     this.currentDragEle = { ...config }
   }
@@ -53,6 +58,7 @@ class Drag {
     //this.curDragElement = DRAG_DEFAULT.BASE_DRAG_EMPTY_ELEMENT
   }
 
+  // 放下一个新的element
   dragDownElement = (left: number, top: number, type: DragType) => {
     let nowConfig = switchInitType(type)
     const leftPercent = transformPosition(left)
@@ -62,7 +68,7 @@ class Drag {
       type,
       left: leftPercent,
       top: topPercent,
-      id: +new Date() + '',
+      id: nanoid(),
     }
 
     //将这个节点的所有信息设置在当前的config上
@@ -73,6 +79,7 @@ class Drag {
     this.getExactDragElement(config.id)
   }
 
+  // 放下一个已经存在的element
   dragDownExistElement = (left: number, top: number) => {
     const leftPercent = transformPosition(left)
     const topPercent = transformPosition(top)
@@ -95,16 +102,29 @@ class Drag {
     this.currentDragEle = { ...result! }
   }
 
+  /**
+   * @description:
+   * @param id: 用于传递当前dragEle的id
+   * @param isDelete? :可选，用于判断是编辑还是删除
+   * @return {*}
+   */
   removeExactDragElement = (id: string, isDelete: boolean = false) => {
     console.log(id)
     this.getExactDragElement(id)
     //把当前节点从dragEle中删掉
     this.resultDragList = this.resultDragList.filter(dragElement => dragElement.id !== id)
+
+    // 如果是删除，需要清空当前的输入框
     if (isDelete) {
       this.currentDragEle = BASE_DRAG_EMPTY
     }
   }
 
+  /**
+   * @description: 用于编辑一个已经配置好的表单（通过表单项）
+   * @param config : 一个已经配置好的表单
+   * @return {*}
+   */
   editDragElement = (config: IDragElement) => {
     this.setDragElementConfig(config)
     const { id } = this.currentDragEle

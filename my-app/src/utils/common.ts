@@ -2,8 +2,8 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:07:23
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 19:16:29
- * @Description: 请填写简介
+ * @LastEditTime: 2022-05-22 22:03:20
+ * @Description: 常用utils
  */
 /**
  * @description: 用于将数字类型转化为百分比
@@ -21,27 +21,40 @@ export function transformPositionPercentToPx(totalLength: number, target: string
   return (pureNumber / 100) * totalLength
 }
 
+//
+
 /**
- * @description: 描述一个盒子是否越界
- * @param position 定位的[left,top]
- * @param size 元素的[width, height]
- * @param border 边界 {x, y}
- * @return {如果没有越界返回false，如果有越界返回true}
+ * @description: 防抖函数：一段时间内重复发生请求，最后一次为准
+ * @param fn 传入的函数
+ * @param delay 趣味加时
+ * @return {*}
  */
-export const isOffside = (position: any, size: any, border: any) => {
-  const [left, top] = position
-  const [width, height] = size
-  if (top < 0 || left < 0) {
-    return true
+export function withDebounce(func: any, delay: number) {
+  var timer: number
+  return function () {
+    if (timer) {
+      console.log('timer存在')
+      window.clearTimeout(timer)
+    }
+    timer = window.setTimeout(function () {
+      func()
+    }, delay)
   }
-  const x = left + width
-  const y = top + height
-  const { borderX, borderY } = border
+}
 
-  // return false代表没有越界
-  if (x >= 0 && x <= borderX && y >= 0 && y <= borderY) {
-    return false
+/**
+ * @description: 节流函数：在delay时间内只执行一次（第一次为准）
+ * @param fn 传入的函数
+ * @param delay 趣味加时
+ * @return {*}
+ */
+export function withThrottle(func: any, delay: number, thisArg?: any) {
+  var timeStamp: number
+  return function (...args: any[]) {
+    var nowTimeStamp = Date.now()
+    if (!timeStamp || nowTimeStamp - timeStamp >= delay) {
+      func.apply(thisArg, args)
+      timeStamp = nowTimeStamp
+    }
   }
-
-  return true
 }

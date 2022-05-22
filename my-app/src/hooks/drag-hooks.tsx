@@ -2,25 +2,21 @@
  * @Author: Ming
  * @Date: 2022-05-18 12:17:17
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 19:30:02
+ * @LastEditTime: 2022-05-21 17:29:02
  * @Description: 这里是drag专用的hooks
  */
 import * as React from 'react'
 import { DragType } from '@/store/modules/drag-store/type'
 import { useStores } from '@/store'
-import { transformPositionPercentToPx, isOffside } from '@/utils/common'
+import { transformPositionPercentToPx } from '@/utils/common'
 import { Message } from '@arco-design/web-react'
+import { BORDER_SIZE, DRAG_ELEMENT_SIZE } from '@/global/default/drag/default'
+import { isOffside } from '@/utils/drag-utils'
 
 // 此处的target是尺寸
 const transformPosition = (target: string) => {
   return transformPositionPercentToPx(500, target)
 }
-
-const border = {
-  borderX: 500,
-  borderY: 500,
-}
-
 
 /**
  * @description:
@@ -66,9 +62,14 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
 
   // 这是放下组件的时候
   const onDragEnd = (e: React.DragEvent, id?: string) => {
+    if (!id) {
+      dragStore.initDragElementConfig()
+    }
     const { width, height } = dragStore.currentDragEle
-    let numberWidth = transformPosition(width)
-    let numberHeight = transformPosition(height)
+    let dragElementWidth =
+      transformPosition(width) === 0 ? DRAG_ELEMENT_SIZE.x : transformPosition(width)
+    let dragElementHeight =
+      transformPosition(height) === 0 ? DRAG_ELEMENT_SIZE.y : transformPosition(height)
     //当前点击相对于左上角0,0的位置
     const { x: clickX, y: clickY } = clickPosition
 
@@ -84,7 +85,7 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
     console.log('finalY：', finalY)
     console.log('beDragedElePositionX:', transformPosition(width))
     console.log('beDragedElePositionY:', transformPosition(height))
-    if (isOffside([finalX, finalY], [numberWidth, numberHeight], border)) {
+    if (isOffside(finalX, finalY, dragElementWidth, dragElementHeight, BORDER_SIZE)) {
       Message.info('GG!')
       return
     }
@@ -99,8 +100,9 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
 
   // 点击某一组件，获取这个组建的实例
   // 如果没有id，那么就不处理，有的话获取详情
-  const onClickChoose = (e: React.MouseEvent, id?: string) => {
+  const onClickChoose = (e: React.MouseEvent, id?: string, MyImageRef?: any) => {
     if (id) {
+      console.log(MyImageRef)
       dragStore.getExactDragElement(id)
     } else {
       console.warn('该节点还没被创建')

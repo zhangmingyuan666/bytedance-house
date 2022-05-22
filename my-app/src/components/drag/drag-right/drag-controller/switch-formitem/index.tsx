@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:58:02
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 17:35:49
+ * @LastEditTime: 2022-05-22 23:02:45
  * @Description: 请填写简介
  */
 import { Form, Input, Select, Slider } from '@arco-design/web-react'
@@ -14,25 +14,30 @@ const Option = Select.Option
 
 type AppProps = {
   config: IFormConfig
+  id?: string
 }
 
-const SwitchType: React.FC<AppProps> = ({ config }) => {
-  const { label, field, disabled, type, selectOptions } = config
+const SwitchType: React.FC<AppProps> = ({ config, id = '' }) => {
+  const { label, field, disabled = false, type, selectOptions } = config
+  let isSelected: boolean = id ? false : true
+  let isDisabled: boolean = isSelected || disabled
+
+  //console.log(id ? false : true && disabled)
   if (type === 'input') {
     return (
-      <FormItem label={label} field={field} disabled={disabled}>
+      <FormItem label={label} field={field} disabled={isDisabled}>
         <Input></Input>
       </FormItem>
     )
   } else if (type === 'slider') {
     return (
-      <FormItem label={label} field={field} disabled={disabled}>
-        <Slider></Slider>
+      <FormItem label={label} field={field} disabled={isDisabled}>
+        <Slider showInput></Slider>
       </FormItem>
     )
   } else if (type === 'select') {
     return (
-      <FormItem label={label} field={field} disabled={disabled}>
+      <FormItem label={label} field={field} disabled={isDisabled}>
         <Select>
           {selectOptions!.map(option => (
             <Option key={option} value={option}>

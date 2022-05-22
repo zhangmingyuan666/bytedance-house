@@ -2,11 +2,12 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:38:21
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 19:20:59
+ * @LastEditTime: 2022-05-21 17:43:45
  * @Description: text drag element
  */
-import useDrag from '@/hooks/drag-hooks'
 import * as React from 'react'
+import { DRAG_ELEMENT_SIZE } from '@/global/default/drag/default'
+import useDrag from '@/hooks/drag-hooks'
 
 type AppProps = {
   id?: string
@@ -21,9 +22,9 @@ type AppProps = {
 const DragText: React.FC<AppProps> = ({
   id = '', // 初始化的时候是没有id的
   content = '我是文字噢',
-  width = '200px',
-  height = '50px',
-  size = 16,
+  width = DRAG_ELEMENT_SIZE.x,
+  height = DRAG_ELEMENT_SIZE.y,
+  size = 1,
   style,
   isSelected = false,
 }) => {
@@ -33,7 +34,7 @@ const DragText: React.FC<AppProps> = ({
   return (
     <div
       ref={myTextRef}
-      style={{ ...style, width, height, fontSize: size + 'px' }}
+      style={{ ...style, fontSize: size + 'rem' }}
       className={isSelected ? 'ring-black ring-2' : ''}
       draggable="true"
       onDragEnd={e => onDragEnd(e, id)}

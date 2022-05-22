@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:30:49
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 17:36:43
+ * @LastEditTime: 2022-05-21 16:10:04
  * @Description: 请填写简介
  */
 export type IFormItemType = 'input' | 'number' | 'select' | 'slider'
@@ -15,6 +15,12 @@ export interface IFormConfig {
 }
 
 export const formConfig: IFormConfig[] = [
+  {
+    field: 'id',
+    label: 'id',
+    disabled: true,
+    type: 'input',
+  },
   {
     field: 'type',
     label: '种类',
