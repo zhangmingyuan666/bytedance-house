@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:23:00
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 16:13:54
+ * @LastEditTime: 2022-05-23 17:07:32
  * @Description: 请填写简介
  */
 interface IDragElement {
@@ -10,8 +10,8 @@ interface IDragElement {
   name: string // 组件的名字
   type: DragType //用于表示种类
   position: 'absolute' // 绝对定位：每一个拖拽系节点都是
-  left: string | number
-  top: string | number
+  left: string
+  top: string
   height: string
   width: string
   content: string //图片的url，文字的txt，其实就是资源的位置2

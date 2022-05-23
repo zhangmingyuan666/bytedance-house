@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:30:49
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-21 16:10:04
+ * @LastEditTime: 2022-05-22 23:35:19
  * @Description: 请填写简介
  */
 export type IFormItemType = 'input' | 'number' | 'select' | 'slider'
@@ -11,7 +11,7 @@ export interface IFormConfig {
   label: string
   type?: IFormItemType
   disabled?: boolean
-  selectOptions?: number[]
+  options?: any
 }
 
 export const formConfig: IFormConfig[] = [
@@ -67,6 +67,6 @@ export const formConfig: IFormConfig[] = [
     field: 'zIndex',
     label: '层级',
     type: 'select',
-    selectOptions: [1, 2, 3, 999],
+    options: [1, 2, 3, 999],
   },
 ]

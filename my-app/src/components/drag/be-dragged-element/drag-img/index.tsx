@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:37:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-21 17:31:06
+ * @LastEditTime: 2022-05-23 17:44:24
  * @Description: 请填写简介
  */
 import { DRAG_ELEMENT_SIZE } from '@/global/default/drag/default'
@@ -22,16 +22,12 @@ type AppProps = {
 const DragImage: React.FC<AppProps> = ({
   id = '', // 初始化的时候是没有id的
   src = 'https://v3.cn.vuejs.org/images/sponsors/html_burger.png',
-
   style,
   isSelected = false,
 }) => {
   let MyImageRef = React.useRef<HTMLDivElement>(null)
   const [onDragStart, onDragEnd, onClickChoose] = useDrag(MyImageRef, 'img')
 
-  if (style) {
-    console.log(style.height, style.width)
-  }
   return (
     <div
       ref={MyImageRef}

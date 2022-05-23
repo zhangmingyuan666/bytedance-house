@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:37:07
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 11:55:08
+ * @LastEditTime: 2022-05-23 15:41:18
  * @Description: 请填写简介
  */
 import * as React from 'react'
@@ -19,7 +19,7 @@ const DragCanvas: React.FC = () => {
   const getPosition = () => {
     const { offsetLeft: x, offsetTop: y } = canvasRef.current!
     store.dragStore.setContainerPosition({ x, y })
-    console.log(x, y)
+    //console.log(x, y)
   }
   store.dragStore.setContainerRefFn(getPosition)
   React.useEffect(() => {

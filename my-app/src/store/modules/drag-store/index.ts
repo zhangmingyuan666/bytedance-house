@@ -2,14 +2,14 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-21 16:43:51
+ * @LastEditTime: 2022-05-23 20:47:52
  * @Description: 请填写简介
  */
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, observable } from 'mobx'
 import { BASE_DRAG_EMPTY } from './default'
 import { DragType, IDragElement, IPosition } from './type'
-import { switchInitType } from './utils'
-import { transformPositionPxToPercent } from '@/utils/common'
+import { switchInitType, connectNearestMap, deleteNearestMap } from './utils'
+import { transformPositionPercentToPx, transformPositionPxToPercent } from '@/utils/common'
 import { nanoid } from 'nanoid'
 
 // 用于将position或者width等从px变为百分号
@@ -17,20 +17,37 @@ const transformPosition = (target: number): string => {
   return transformPositionPxToPercent(500, target)
 }
 
+// 将百分号变为px
+const transformDragPositionPercentToPx = (target: string): number => {
+  return transformPositionPercentToPx(500, target)
+}
+
 class Drag {
   currentDragEle: IDragElement = BASE_DRAG_EMPTY // 当前选择的 dragElemt
   resultDragList: IDragElement[] = [] // 所有的DragElment集合
-
   containerRefFn: any = null // 此处传入容器的Ref
-
   containerPosition: IPosition = {
     // 此处保存当前容器的位置
     x: 0,
     y: 0,
   }
 
+  leftMap = observable(new Map<number, number>()) // 维护left的哈希表
+  topMap = observable(new Map<number, number>()) // 维护top的哈希表
+
   constructor() {
     makeAutoObservable(this)
+  }
+
+  get getPositionPercentToNumber() {
+    const { width, height, left, top } = this.currentDragEle
+    console.log(width, height, left, top)
+    return {
+      width: +width.split('%')[0],
+      height: +height.split('%')[0],
+      left: +left.split('%')[0],
+      top: +top.split('%')[0],
+    }
   }
 
   //此处是设置canvas的函数
@@ -42,12 +59,11 @@ class Drag {
     this.containerPosition = { ...position }
   }
 
-  //设置属性
-  //一次设置所有
   initDragElementConfig = () => {
     this.setDragElementConfig(BASE_DRAG_EMPTY)
   }
-
+  //设置属性
+  //一次设置所有
   setDragElementConfig = (config: IDragElement) => {
     this.currentDragEle = { ...config }
   }
@@ -61,6 +77,12 @@ class Drag {
   // 放下一个新的element
   dragDownElement = (left: number, top: number, type: DragType) => {
     let nowConfig = switchInitType(type)
+    console.log('before', left)
+    console.log('before', top)
+    left = connectNearestMap(this.leftMap, left, 15)
+    top = connectNearestMap(this.topMap, top, 15)
+    console.log('after', left)
+    console.log('after', top)
     const leftPercent = transformPosition(left)
     const topPercent = transformPosition(top)
     const config: IDragElement = {
@@ -81,8 +103,15 @@ class Drag {
 
   // 放下一个已经存在的element
   dragDownExistElement = (left: number, top: number) => {
+    console.log('before', left)
+    console.log('before', top)
+    left = connectNearestMap(this.leftMap, left, 15)
+    top = connectNearestMap(this.topMap, top, 15)
+    console.log('after', left)
+    console.log('after', top)
     const leftPercent = transformPosition(left)
     const topPercent = transformPosition(top)
+
     const config = {
       ...this.currentDragEle,
       left: leftPercent,
@@ -111,7 +140,11 @@ class Drag {
   removeExactDragElement = (id: string, isDelete: boolean = false) => {
     console.log(id)
     this.getExactDragElement(id)
+    const { left, top } = this.currentDragEle
+    deleteNearestMap(this.leftMap, transformDragPositionPercentToPx(left), 5)
+    deleteNearestMap(this.topMap, transformDragPositionPercentToPx(top), 5)
     //把当前节点从dragEle中删掉
+
     this.resultDragList = this.resultDragList.filter(dragElement => dragElement.id !== id)
 
     // 如果是删除，需要清空当前的输入框
@@ -126,17 +159,19 @@ class Drag {
    * @return {*}
    */
   editDragElement = (config: IDragElement) => {
-    this.setDragElementConfig(config)
-    const { id } = this.currentDragEle
-
-    // 如果没有id不进行编辑
-    if (!id) {
+    if (!config.id) {
+      console.log('没有id无法编辑')
       return
     }
+    this.setDragElementConfig(config)
+    const { id } = this.currentDragEle
     let tmpObj = { ...this.currentDragEle }
     //把这一个节点清除掉
     this.removeExactDragElement(id)
     this.currentDragEle = { ...tmpObj }
+    const { left, top } = this.currentDragEle
+    connectNearestMap(this.leftMap, transformDragPositionPercentToPx(left), 15)
+    connectNearestMap(this.topMap, transformDragPositionPercentToPx(top), 15)
     this.addResElement()
   }
 }

@@ -31,7 +31,7 @@ code {
   }
 
   .ming-divider {
-    @apply divide-y-2 border-gray-100 divide-dashed
+    @apply border-t border-2 border-gray-100
   }
 
   .ming-center {
@@ -41,4 +41,5 @@ code {
   .is-over-max-width {
     @apply xl:mx-auto
   }
+
 }

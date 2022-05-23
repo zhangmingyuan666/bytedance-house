@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:53:15
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-22 22:32:03
+ * @LastEditTime: 2022-05-23 20:29:43
  * @Description: 请填写简介
  */
 import SwitchType from './switch-formitem'
@@ -18,38 +18,35 @@ import { withDebounce } from '@/utils/common'
 const FormItem = Form.Item
 
 const DragController: React.FC = () => {
-  const store = useStores()
-  let curDragEle: any = { ...store.dragStore.currentDragEle } // 拷贝的副本，我们更改数据在这个对象中进行更改
-  let { width, height, top, left } = curDragEle
-  width = +width.split('%')[0]
-  height = +height.split('%')[0]
-  top = +top.split('%')[0]
-  left = +left.split('%')[0]
-  curDragEle = { ...curDragEle, height, width, top, left }
-  const dragElementConfigTableKeys: any[] = Object.keys(curDragEle)
+  const { dragStore } = useStores()
+
+  let curDragEle = { ...dragStore.currentDragEle, ...dragStore.getPositionPercentToNumber }
+  const dragElementConfigTableKeys: any[] = Object.keys({ ...curDragEle })
   let id = curDragEle.id ?? '' // 根据id来判断是否使用了错误的id
 
   // 编辑drag
   const editDragElement = (value: any) => {
     let result = { ...curDragEle, ...value }
     let { width, height, top, left } = result
-    width += '%'
-    height += '%'
-    top += '%'
-    left += '%'
-    store.dragStore.editDragElement({ ...result, width, height, top, left })
+    dragStore.editDragElement({
+      ...result,
+      width: width + '%',
+      height: height + '%',
+      top: top + '%',
+      left: left + '%',
+    })
   }
 
   const submitDragElementEdit = (value: any) => {
     editDragElement(value)
-    store.dragStore.initDragElementConfig()
+    dragStore.initDragElementConfig()
   }
 
   function handleValuesChange(key: any, all: any) {
     handleOffset(key, all, () => editDragElement(all))
   }
 
-  const removeDragElement = () => store.dragStore.removeExactDragElement(id, true)
+  const removeDragElement = () => dragStore.removeExactDragElement(id, true)
 
   function GetForm() {
     return (

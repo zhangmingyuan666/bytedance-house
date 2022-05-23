@@ -34,7 +34,7 @@ const DragText: React.FC<AppProps> = ({
   return (
     <div
       ref={myTextRef}
-      style={{ ...style, fontSize: size + 'rem' }}
+      style={{ ...style }}
       className={isSelected ? 'ring-black ring-2' : ''}
       draggable="true"
       onDragEnd={e => onDragEnd(e, id)}

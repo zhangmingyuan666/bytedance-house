@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:58:02
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-22 23:02:45
+ * @LastEditTime: 2022-05-22 23:35:40
  * @Description: 请填写简介
  */
 import { Form, Input, Select, Slider } from '@arco-design/web-react'
@@ -18,7 +18,7 @@ type AppProps = {
 }
 
 const SwitchType: React.FC<AppProps> = ({ config, id = '' }) => {
-  const { label, field, disabled = false, type, selectOptions } = config
+  const { label, field, disabled = false, type, options } = config
   let isSelected: boolean = id ? false : true
   let isDisabled: boolean = isSelected || disabled
 
@@ -32,14 +32,14 @@ const SwitchType: React.FC<AppProps> = ({ config, id = '' }) => {
   } else if (type === 'slider') {
     return (
       <FormItem label={label} field={field} disabled={isDisabled}>
-        <Slider showInput></Slider>
+        <Slider></Slider>
       </FormItem>
     )
   } else if (type === 'select') {
     return (
       <FormItem label={label} field={field} disabled={isDisabled}>
         <Select>
-          {selectOptions!.map(option => (
+          {options!.map((option: any) => (
             <Option key={option} value={option}>
               {option}
             </Option>

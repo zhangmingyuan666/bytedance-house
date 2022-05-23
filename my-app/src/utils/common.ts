@@ -2,9 +2,12 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:07:23
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-22 22:03:20
+ * @LastEditTime: 2022-05-23 18:19:53
  * @Description: 常用utils
  */
+
+import { ObservableMap } from 'mobx'
+
 /**
  * @description: 用于将数字类型转化为百分比
  * @param totalLength:分母
@@ -57,4 +60,13 @@ export function withThrottle(func: any, delay: number, thisArg?: any) {
       timeStamp = nowTimeStamp
     }
   }
+}
+
+export function mapToArray(map: ObservableMap<number, number>) {
+  const arr: number[] = []
+  console.log(map)
+  map.forEach(function (value, key, map) {
+    arr.push(key)
+  })
+  return arr
 }
