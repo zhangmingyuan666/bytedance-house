@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:38:21
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 16:19:47
+ * @LastEditTime: 2022-05-24 21:54:50
  * @Description: text drag element
  */
 import * as React from 'react'
@@ -39,7 +39,7 @@ const DragText: React.FC<AppProps> = ({
       onDragStart={e => onDragStart(e, id)}
       onClick={e => onClickChoose(e, id)}
     >
-      <p>{content}</p>
+      {content}
     </div>
   )
 }

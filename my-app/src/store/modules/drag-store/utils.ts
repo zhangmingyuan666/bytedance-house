@@ -2,11 +2,17 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:24
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 13:31:37
+ * @LastEditTime: 2022-05-24 20:13:33
  * @Description: 请填写简介
  */
 import { ObservableMap } from 'mobx'
-import { BASE_DRAG_IMG, BASE_DRAG_TEXT, BASE_DRAG_EMPTY } from './default'
+import {
+  BASE_DRAG_IMG,
+  BASE_DRAG_TEXT,
+  BASE_DRAG_EMPTY,
+  BASE_DRAG_AUDIO,
+  BASE_DRAG_VIDEO,
+} from './default'
 import { IDragElement, DragType } from './type'
 export function switchInitType(type: DragType): IDragElement {
   let nowConfig: IDragElement
@@ -16,6 +22,12 @@ export function switchInitType(type: DragType): IDragElement {
       break
     case 'img':
       nowConfig = BASE_DRAG_IMG
+      break
+    case 'audio':
+      nowConfig = BASE_DRAG_AUDIO
+      break
+    case 'video':
+      nowConfig = BASE_DRAG_VIDEO
       break
     default:
       nowConfig = BASE_DRAG_EMPTY
