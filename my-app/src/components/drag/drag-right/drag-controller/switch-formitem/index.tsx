@@ -2,10 +2,10 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:58:02
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-22 23:35:40
+ * @LastEditTime: 2022-05-23 21:56:09
  * @Description: 请填写简介
  */
-import { Form, Input, Select, Slider } from '@arco-design/web-react'
+import { Form, Input, Modal, Select, Slider, Upload } from '@arco-design/web-react'
 import * as React from 'react'
 import { IFormConfig } from '../config'
 
@@ -15,9 +15,10 @@ const Option = Select.Option
 type AppProps = {
   config: IFormConfig
   id?: string
+  formType: string
 }
 
-const SwitchType: React.FC<AppProps> = ({ config, id = '' }) => {
+const SwitchType: React.FC<AppProps> = ({ config, id = '', formType }) => {
   const { label, field, disabled = false, type, options } = config
   let isSelected: boolean = id ? false : true
   let isDisabled: boolean = isSelected || disabled

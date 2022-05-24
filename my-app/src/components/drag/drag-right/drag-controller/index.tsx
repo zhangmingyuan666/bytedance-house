@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:53:15
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 20:29:43
+ * @LastEditTime: 2022-05-23 23:10:28
  * @Description: 请填写简介
  */
 import SwitchType from './switch-formitem'
@@ -13,7 +13,7 @@ import { Form, Button } from '@arco-design/web-react'
 import { observer } from 'mobx-react-lite'
 import { formConfig } from './config'
 import { handleOffset } from '@/utils/drag-utils'
-import { withDebounce } from '@/utils/common'
+
 
 const FormItem = Form.Item
 
@@ -48,6 +48,12 @@ const DragController: React.FC = () => {
 
   const removeDragElement = () => dragStore.removeExactDragElement(id, true)
 
+  const onUpload = (e: any) => {
+    const uploadFile = e.target.files[0]
+    const localUrl = URL.createObjectURL(uploadFile)
+    editDragElement({ ...dragStore.currentDragEle, content: localUrl })
+  }
+
   function GetForm() {
     return (
       <Form
@@ -56,10 +62,21 @@ const DragController: React.FC = () => {
         onValuesChange={(key, all) => handleValuesChange(key, all)}
         disabled={id ? false : true}
       >
+        {curDragEle.type === 'img' ? (
+          <FormItem wrapperCol={{ offset: 5 }}>
+            <div>
+              <input
+                type="file"
+                onChange={e => onUpload(e)}
+                accept="image/gif,image/jpeg,image/jpg,image/png"
+              />
+            </div>
+          </FormItem>
+        ) : null}
         {formConfig.map((config: any) => {
           const { field: key } = config
           if (dragElementConfigTableKeys.includes(key)) {
-            return <SwitchType config={config} key={key} id={id} />
+            return <SwitchType config={config} key={key} id={id} formType={curDragEle.type ?? ''} />
           } else {
             return null
           }

@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-21 12:54:33
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-21 14:19:47
+ * @LastEditTime: 2022-05-23 22:54:54
  * @Description: 请填写简介
  */
 interface IBorder {
@@ -17,5 +17,5 @@ export const DRAG_ELEMENT_SIZE: IBorder = {
 
 export const BORDER_SIZE = {
   x: 500,
-  y: 500,
+  y: 800,
 }

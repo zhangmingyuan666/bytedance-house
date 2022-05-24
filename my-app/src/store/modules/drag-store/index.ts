@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 20:47:52
+ * @LastEditTime: 2022-05-24 13:36:29
  * @Description: 请填写简介
  */
 import { makeAutoObservable, observable } from 'mobx'
@@ -11,21 +11,16 @@ import { DragType, IDragElement, IPosition } from './type'
 import { switchInitType, connectNearestMap, deleteNearestMap } from './utils'
 import { transformPositionPercentToPx, transformPositionPxToPercent } from '@/utils/common'
 import { nanoid } from 'nanoid'
-
-// 用于将position或者width等从px变为百分号
-const transformPosition = (target: number): string => {
-  return transformPositionPxToPercent(500, target)
-}
-
-// 将百分号变为px
-const transformDragPositionPercentToPx = (target: string): number => {
-  return transformPositionPercentToPx(500, target)
-}
+import { BORDER_SIZE } from '@/global/default/drag/default'
 
 class Drag {
   currentDragEle: IDragElement = BASE_DRAG_EMPTY // 当前选择的 dragElemt
   resultDragList: IDragElement[] = [] // 所有的DragElment集合
   containerRefFn: any = null // 此处传入容器的Ref
+  containerRefSize: IPosition = {
+    x: 500,
+    y: 500,
+  }
   containerPosition: IPosition = {
     // 此处保存当前容器的位置
     x: 0,
@@ -59,6 +54,10 @@ class Drag {
     this.containerPosition = { ...position }
   }
 
+  setContainerRefSize = (height: number) => {
+    this.containerRefSize.y = height
+  }
+
   initDragElementConfig = () => {
     this.setDragElementConfig(BASE_DRAG_EMPTY)
   }
@@ -77,14 +76,16 @@ class Drag {
   // 放下一个新的element
   dragDownElement = (left: number, top: number, type: DragType) => {
     let nowConfig = switchInitType(type)
-    console.log('before', left)
-    console.log('before', top)
-    left = connectNearestMap(this.leftMap, left, 15)
-    top = connectNearestMap(this.topMap, top, 15)
-    console.log('after', left)
-    console.log('after', top)
-    const leftPercent = transformPosition(left)
-    const topPercent = transformPosition(top)
+    const leftPercent = connectNearestMap(
+      this.leftMap,
+      +transformPositionPxToPercent(this.containerRefSize.x, left).split('%')[0],
+      3
+    )
+    const topPercent = connectNearestMap(
+      this.topMap,
+      +transformPositionPxToPercent(this.containerRefSize.y, top).split('%')[0],
+      3
+    )
     const config: IDragElement = {
       ...nowConfig,
       type,
@@ -103,15 +104,16 @@ class Drag {
 
   // 放下一个已经存在的element
   dragDownExistElement = (left: number, top: number) => {
-    console.log('before', left)
-    console.log('before', top)
-    left = connectNearestMap(this.leftMap, left, 15)
-    top = connectNearestMap(this.topMap, top, 15)
-    console.log('after', left)
-    console.log('after', top)
-    const leftPercent = transformPosition(left)
-    const topPercent = transformPosition(top)
-
+    const leftPercent = connectNearestMap(
+      this.leftMap,
+      +transformPositionPxToPercent(this.containerRefSize.x, left).split('%')[0],
+      3
+    )
+    const topPercent = connectNearestMap(
+      this.topMap,
+      +transformPositionPxToPercent(this.containerRefSize.y, top).split('%')[0],
+      3
+    )
     const config = {
       ...this.currentDragEle,
       left: leftPercent,
@@ -141,8 +143,8 @@ class Drag {
     console.log(id)
     this.getExactDragElement(id)
     const { left, top } = this.currentDragEle
-    deleteNearestMap(this.leftMap, transformDragPositionPercentToPx(left), 5)
-    deleteNearestMap(this.topMap, transformDragPositionPercentToPx(top), 5)
+    deleteNearestMap(this.leftMap, +left.split('%')[0], 10)
+    deleteNearestMap(this.topMap, +top.split('%')[0], 10)
     //把当前节点从dragEle中删掉
 
     this.resultDragList = this.resultDragList.filter(dragElement => dragElement.id !== id)
@@ -170,8 +172,8 @@ class Drag {
     this.removeExactDragElement(id)
     this.currentDragEle = { ...tmpObj }
     const { left, top } = this.currentDragEle
-    connectNearestMap(this.leftMap, transformDragPositionPercentToPx(left), 15)
-    connectNearestMap(this.topMap, transformDragPositionPercentToPx(top), 15)
+    connectNearestMap(this.leftMap, +left.split('%')[0], 10)
+    connectNearestMap(this.topMap, +top.split('%')[0], 10)
     this.addResElement()
   }
 }

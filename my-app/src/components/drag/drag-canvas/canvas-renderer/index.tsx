@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 18:25:26
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 20:22:26
+ * @LastEditTime: 2022-05-24 13:41:14
  * @Description: 请填写简介
  */
 import { IDragElement } from '@/store/modules/drag-store/type'
@@ -28,7 +28,6 @@ const CanvasRenderer: React.FC<AppProps> = ({ dragElementList, curSelectedId }) 
     <div>
       {dragElementList.map((dragElement: IDragElement) => {
         let { id } = dragElement
-
         return (
           <RendererSelector
             config={dragElement}
@@ -41,7 +40,7 @@ const CanvasRenderer: React.FC<AppProps> = ({ dragElementList, curSelectedId }) 
         return (
           <div
             className="h-full absolute "
-            style={{ left: left, borderLeft: '1px solid rgb(235,235,235)' }}
+            style={{ left: left + '%', borderLeft: '1px solid rgb(235,235,235)' }}
             key={left}
           ></div>
         )
@@ -50,7 +49,7 @@ const CanvasRenderer: React.FC<AppProps> = ({ dragElementList, curSelectedId }) 
         return (
           <div
             className="w-full absolute "
-            style={{ top: top, borderTop: '1px solid rgb(235,235,235)' }}
+            style={{ top: top + '%', borderTop: '1px solid rgb(235,235,235)' }}
             key={top}
           ></div>
         )

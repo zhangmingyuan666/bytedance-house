@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 12:17:17
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 17:42:12
+ * @LastEditTime: 2022-05-24 13:38:26
  * @Description: 这里是drag专用的hooks
  */
 import * as React from 'react'
@@ -29,6 +29,7 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
   const store = useStores()
 
   const { dragStore } = store
+  const { containerRefSize } = dragStore
 
   // 用于标记点击的时候相对于父亲节点的坐标
   const [clickPosition, setClickPosition] = React.useState({
@@ -65,9 +66,13 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
   function getDragPositionAndSize(e: React.DragEvent) {
     const { width, height } = dragStore.currentDragEle
     let dragElementWidth =
-      transformPosition(width) === 0 ? DRAG_ELEMENT_SIZE.x : transformPosition(width)
+      transformPositionPercentToPx(containerRefSize.x, width) === 0
+        ? DRAG_ELEMENT_SIZE.x
+        : transformPositionPercentToPx(containerRefSize.x, width)
     let dragElementHeight =
-      transformPosition(height) === 0 ? DRAG_ELEMENT_SIZE.y : transformPosition(height)
+      transformPositionPercentToPx(containerRefSize.y, height) === 0
+        ? DRAG_ELEMENT_SIZE.y
+        : transformPositionPercentToPx(containerRefSize.y, height)
     //当前点击相对于左上角0,0的位置
     const { x: clickX, y: clickY } = clickPosition
 
@@ -75,23 +80,17 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
     const { clientX, clientY } = e
     //当前canvas的位置
     const { x: containerPositionX, y: containerPositionY } = getCanvasContainerPosition()
-
     //最终位置
     let finalX = clientX - containerPositionX - clickX // px
     let finalY = clientY - containerPositionY - clickY // px
+
+    // console.log('finalX：', finalX)
+    // console.log('finalY：', finalY)
+    // console.log('beDragedElePositionX:', dragElementWidth)
+    // console.log('beDragedElePositionY:', dragElementHeight)
     return { dragElementWidth, dragElementHeight, finalX, finalY }
   }
 
-  // const onDrag = (e: React.DragEvent, id?: string) => {
-  //   const { dragElementWidth, dragElementHeight, finalX, finalY } = getDRagPositionAndSize(e)
-  //   console.log('---------')
-  //   console.log(finalX, finalY)
-  //   if (isOffside(finalX, finalY, dragElementWidth, dragElementHeight, BORDER_SIZE)) {
-  //     offsideStatus.current = true
-  //   } else {
-  //     offsideStatus.current = false
-  //   }
-  // }
   // 这是放下组件的时候
   const onDragEnd = (e: React.DragEvent, id?: string) => {
     if (!id) {
@@ -99,11 +98,7 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
     }
     const { dragElementWidth, dragElementHeight, finalX, finalY } = getDragPositionAndSize(e)
 
-    // console.log('finalX：', finalX)
-    // console.log('finalY：', finalY)
-    // console.log('beDragedElePositionX:', transformPosition(width))
-    // console.log('beDragedElePositionY:', transformPosition(height))
-    if (isOffside(finalX, finalY, dragElementWidth, dragElementHeight, BORDER_SIZE)) {
+    if (isOffside(finalX, finalY, dragElementWidth, dragElementHeight, containerRefSize)) {
       Message.info('GG!')
       return
     }

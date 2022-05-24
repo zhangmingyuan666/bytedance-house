@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:24
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 20:44:21
+ * @LastEditTime: 2022-05-24 13:31:37
  * @Description: 请填写简介
  */
 import { ObservableMap } from 'mobx'
@@ -37,14 +37,14 @@ export function switchInitType(type: DragType): IDragElement {
 function handleBorder(map: ObservableMap<number, number>, border: number) {
   let value = map.get(border)!
   map.set(border, value + 1)
-  return border
+  return border + '%'
 }
 
 export function connectNearestMap(
   map: ObservableMap<number, number>,
   target: number,
   offset: number
-): number {
+): string {
   console.log(map)
   for (let i = 0; i < offset; i++) {
     const leftBorder = target - i
@@ -57,7 +57,7 @@ export function connectNearestMap(
   }
   // 没找到的话，返回最大值，并把旧的删除
   map.set(target, 1)
-  return target
+  return target + '%'
 }
 
 export function deleteNearestMap(

@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:30:49
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-22 23:35:19
+ * @LastEditTime: 2022-05-23 21:54:28
  * @Description: 请填写简介
  */
 export type IFormItemType = 'input' | 'number' | 'select' | 'slider'
@@ -15,6 +15,12 @@ export interface IFormConfig {
 }
 
 export const formConfig: IFormConfig[] = [
+  {
+    field: 'content',
+    label: '内容',
+    type: 'input',
+    options: 'upload',
+  },
   {
     field: 'id',
     label: 'id',
@@ -32,12 +38,6 @@ export const formConfig: IFormConfig[] = [
     label: '组件名字',
     type: 'input',
   },
-  {
-    field: 'content',
-    label: '内容',
-    type: 'input',
-  },
-
   {
     field: 'top',
     label: '距离顶部距离',
