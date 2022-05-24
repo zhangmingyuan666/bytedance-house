@@ -4,7 +4,7 @@ import { Message } from '@arco-design/web-react'
  * @Author: Ming
  * @Date: 2022-05-21 15:34:34
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 13:37:28
+ * @LastEditTime: 2022-05-24 13:59:37
  * @Description: 请填写简介
  */
 interface IPosition {
@@ -42,7 +42,7 @@ export const isOffside = (
 
 export const handleOffset = (beHandledObj: any, allObj: any, callback?: any) => {
   let key = Object.keys(beHandledObj)[0]
-  let value = beHandledObj.key
+  let value = beHandledObj[key]
 
   if (key === 'top') {
     const height = allObj['height']

@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 18:25:26
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 13:41:14
+ * @LastEditTime: 2022-05-24 16:14:06
  * @Description: 请填写简介
  */
 import { IDragElement } from '@/store/modules/drag-store/type'
@@ -25,7 +25,7 @@ const CanvasRenderer: React.FC<AppProps> = ({ dragElementList, curSelectedId }) 
   const leftArr = mapToArray(dragStore.leftMap)
   const topArr = mapToArray(dragStore.topMap)
   return (
-    <div>
+    <div onDragOver={e => e.preventDefault()}>
       {dragElementList.map((dragElement: IDragElement) => {
         let { id } = dragElement
         return (

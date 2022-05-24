@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 13:36:29
+ * @LastEditTime: 2022-05-24 15:58:26
  * @Description: 请填写简介
  */
 import { makeAutoObservable, observable } from 'mobx'
@@ -45,6 +45,10 @@ class Drag {
     }
   }
 
+  get getContainerProportion() {
+    return (this.containerRefSize.y / this.containerRefSize.x).toFixed(2)
+  }
+
   //此处是设置canvas的函数
   setContainerRefFn = (fn: any) => {
     this.containerRefFn = fn
@@ -74,7 +78,7 @@ class Drag {
   }
 
   // 放下一个新的element
-  dragDownElement = (left: number, top: number, type: DragType) => {
+  dragDownElement = (left: number, top: number, type: DragType, options: {}) => {
     let nowConfig = switchInitType(type)
     const leftPercent = connectNearestMap(
       this.leftMap,
@@ -92,6 +96,7 @@ class Drag {
       left: leftPercent,
       top: topPercent,
       id: nanoid(),
+      ...options,
     }
 
     //将这个节点的所有信息设置在当前的config上

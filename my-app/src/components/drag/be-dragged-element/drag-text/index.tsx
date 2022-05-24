@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:38:21
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 22:26:28
+ * @LastEditTime: 2022-05-24 16:19:47
  * @Description: text drag element
  */
 import * as React from 'react'
@@ -22,8 +22,6 @@ type AppProps = {
 const DragText: React.FC<AppProps> = ({
   id = '', // 初始化的时候是没有id的
   content = '我是文字噢',
-  width = DRAG_ELEMENT_SIZE.x,
-  height = DRAG_ELEMENT_SIZE.y,
   size = 1,
   style,
   isSelected = false,
@@ -37,11 +35,11 @@ const DragText: React.FC<AppProps> = ({
       style={{ ...style, fontSize: size + 'px' }}
       className={isSelected ? 'ring-black ring-2' : ''}
       draggable="true"
-      onDragEnd={e => onDragEnd(e, id)}
+      onDragEnd={e => onDragEnd(e, id, myTextRef)}
       onDragStart={e => onDragStart(e, id)}
       onClick={e => onClickChoose(e, id)}
     >
-      <span className="w-full h-full">{content}</span>
+      <p>{content}</p>
     </div>
   )
 }

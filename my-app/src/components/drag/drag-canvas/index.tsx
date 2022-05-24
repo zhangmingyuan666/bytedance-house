@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:37:07
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 12:59:55
+ * @LastEditTime: 2022-05-24 16:19:16
  * @Description: 请填写简介
  */
 import * as React from 'react'
@@ -11,9 +11,11 @@ import './index.css'
 import { useStores } from '@/store'
 import CanvasRenderer from './canvas-renderer'
 import { BORDER_SIZE } from '@/global/default/drag/default'
-import { ResizeBox } from '@arco-design/web-react'
+import { ResizeBox, Statistic } from '@arco-design/web-react'
 const DragCanvas: React.FC = () => {
   const { dragStore } = useStores()
+  const { getContainerProportion, containerRefSize } = dragStore
+
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
   const dragElementList = [...dragStore.resultDragList]
   const { id: curSelectedId } = dragStore.currentDragEle
@@ -31,9 +33,10 @@ const DragCanvas: React.FC = () => {
   // 通过渲染器进行渲染
   return (
     <div className="mx-4">
-      <div>
-        <span>{dragStore.containerRefSize.x}</span>
-        <span>{dragStore.containerRefSize.y}</span>
+      <div className="grid grid-cols-3 divide-x divide-grey-100 text-center mb-4">
+        <Statistic title="画布长宽比" value={getContainerProportion} groupSeparator />
+        <Statistic extra="画布长度" value={containerRefSize.x} groupSeparator precision={2} />
+        <Statistic extra="画布高度" value={containerRefSize.y} groupSeparator />
       </div>
       <ResizeBox
         className="border-2 border-gray-100 relative"
@@ -43,18 +46,15 @@ const DragCanvas: React.FC = () => {
           maxWidth: 500,
           maxHeight: 900,
           minHeight: 500,
-          textAlign: 'center',
         }}
         onMoving={(e, { width, height }) => {
           if (height >= 500 && height <= 900) {
-            dragStore.setContainerRefSize(height)
+            dragStore.setContainerRefSize(+height.toFixed(2))
           }
         }}
         ref={canvasRef}
       >
-        <div onDragOver={e => e.preventDefault()}>
-          <CanvasRenderer dragElementList={dragElementList} curSelectedId={curSelectedId} />
-        </div>
+        <CanvasRenderer dragElementList={dragElementList} curSelectedId={curSelectedId} />
       </ResizeBox>
     </div>
   )

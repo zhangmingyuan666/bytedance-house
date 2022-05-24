@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:18
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-19 19:22:43
+ * @LastEditTime: 2022-05-24 16:07:55
  * @Description: 请填写简介
  */
 import { IDragElement } from './type'
@@ -30,8 +30,8 @@ export const BASE_DRAG_IMG: IDragElement = {
   content: 'https://v3.cn.vuejs.org/images/sponsors/html_burger.png',
   left: '',
   top: '',
-  height: '10%',
-  width: '40%',
+  height: '',
+  width: '',
   zIndex: 2,
 }
 
@@ -43,8 +43,8 @@ export const BASE_DRAG_TEXT: IDragElement = {
   content: '我是文字噢',
   left: '',
   top: '',
-  height: '10%',
-  width: '40%',
+  height: '',
+  width: '',
   size: 16,
   zIndex: 2,
   color: 'red',

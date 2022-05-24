@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:37:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 17:44:24
+ * @LastEditTime: 2022-05-24 16:06:57
  * @Description: 请填写简介
  */
 import { DRAG_ELEMENT_SIZE } from '@/global/default/drag/default'
@@ -34,7 +34,7 @@ const DragImage: React.FC<AppProps> = ({
       style={{ ...style }}
       className={isSelected ? 'ring-black ring-2' : ''}
       draggable="true"
-      onDragEnd={e => onDragEnd(e, id)}
+      onDragEnd={e => onDragEnd(e, id, MyImageRef)}
       onDragStart={e => onDragStart(e, id)}
       onClick={e => onClickChoose(e, id, MyImageRef)}
     >

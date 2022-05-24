@@ -2,13 +2,13 @@
  * @Author: Ming
  * @Date: 2022-05-18 12:17:17
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 13:38:26
+ * @LastEditTime: 2022-05-24 17:07:48
  * @Description: 这里是drag专用的hooks
  */
 import * as React from 'react'
 import { DragType } from '@/store/modules/drag-store/type'
 import { useStores } from '@/store'
-import { transformPositionPercentToPx } from '@/utils/common'
+import { transformPositionPercentToPx, transformPositionPxToPercent } from '@/utils/common'
 import { Message } from '@arco-design/web-react'
 import { BORDER_SIZE, DRAG_ELEMENT_SIZE } from '@/global/default/drag/default'
 import { isOffside } from '@/utils/drag-utils'
@@ -63,16 +63,16 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
       y,
     }))
   }
-  function getDragPositionAndSize(e: React.DragEvent) {
+  function getDragPositionAndSize(e: React.DragEvent, Ref: any) {
+    console.log(dragStore.currentDragEle)
     const { width, height } = dragStore.currentDragEle
-    let dragElementWidth =
-      transformPositionPercentToPx(containerRefSize.x, width) === 0
-        ? DRAG_ELEMENT_SIZE.x
-        : transformPositionPercentToPx(containerRefSize.x, width)
-    let dragElementHeight =
-      transformPositionPercentToPx(containerRefSize.y, height) === 0
-        ? DRAG_ELEMENT_SIZE.y
-        : transformPositionPercentToPx(containerRefSize.y, height)
+    console.log(Ref.current.offsetWidth, Ref.current.offsetHeight)
+    let dragElementWidth = !width
+      ? Ref.current.offsetWidth
+      : transformPositionPercentToPx(containerRefSize.x, width)
+    let dragElementHeight = !height
+      ? Ref.current.offsetHeight
+      : transformPositionPercentToPx(containerRefSize.y, height)
     //当前点击相对于左上角0,0的位置
     const { x: clickX, y: clickY } = clickPosition
 
@@ -92,11 +92,12 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
   }
 
   // 这是放下组件的时候
-  const onDragEnd = (e: React.DragEvent, id?: string) => {
+  const onDragEnd = (e: React.DragEvent, id?: string, Ref?: any) => {
     if (!id) {
       dragStore.initDragElementConfig()
     }
-    const { dragElementWidth, dragElementHeight, finalX, finalY } = getDragPositionAndSize(e)
+
+    const { dragElementWidth, dragElementHeight, finalX, finalY } = getDragPositionAndSize(e, Ref)
 
     if (isOffside(finalX, finalY, dragElementWidth, dragElementHeight, containerRefSize)) {
       Message.info('GG!')
@@ -107,7 +108,10 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
       //把这个组件移除掉，并更换成下面定义的新的
       dragStore.dragDownExistElement(finalX, finalY)
     } else {
-      dragStore.dragDownElement(finalX, finalY, type)
+      // 第一次放置的时候，我们需要根据size设置他的默认
+      let width = transformPositionPxToPercent(containerRefSize.x, Ref.current.offsetWidth)
+      let height = transformPositionPxToPercent(containerRefSize.y, Ref.current.offsetHeight)
+      dragStore.dragDownElement(finalX, finalY, type, { width, height })
     }
   }
 
