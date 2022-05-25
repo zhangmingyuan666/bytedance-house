@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:53:15
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 23:10:28
+ * @LastEditTime: 2022-05-25 09:43:31
  * @Description: 请填写简介
  */
 import SwitchType from './switch-formitem'
@@ -54,6 +54,7 @@ const DragController: React.FC = () => {
     editDragElement({ ...dragStore.currentDragEle, content: localUrl })
   }
 
+  const TO_UPLOAD = ['img', 'audio', 'video']
   function GetForm() {
     return (
       <Form
@@ -62,14 +63,10 @@ const DragController: React.FC = () => {
         onValuesChange={(key, all) => handleValuesChange(key, all)}
         disabled={id ? false : true}
       >
-        {curDragEle.type === 'img' ? (
+        {TO_UPLOAD.includes(curDragEle.type) ? (
           <FormItem wrapperCol={{ offset: 5 }}>
             <div>
-              <input
-                type="file"
-                onChange={e => onUpload(e)}
-                accept="image/gif,image/jpeg,image/jpg,image/png"
-              />
+              <input type="file" onChange={e => onUpload(e)} />
             </div>
           </FormItem>
         ) : null}

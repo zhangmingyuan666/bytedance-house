@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 23:37:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 16:06:57
+ * @LastEditTime: 2022-05-25 09:22:34
  * @Description: 请填写简介
  */
 import { DRAG_ELEMENT_SIZE } from '@/global/default/drag/default'

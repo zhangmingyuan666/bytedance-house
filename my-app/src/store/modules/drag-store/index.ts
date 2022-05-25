@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 15:58:26
+ * @LastEditTime: 2022-05-24 23:24:46
  * @Description: 请填写简介
  */
 import { makeAutoObservable, observable } from 'mobx'

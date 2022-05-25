@@ -4,7 +4,7 @@ import { Message } from '@arco-design/web-react'
  * @Author: Ming
  * @Date: 2022-05-21 15:34:34
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 17:35:28
+ * @LastEditTime: 2022-05-25 09:24:56
  * @Description: 请填写简介
  */
 interface IPosition {
@@ -31,7 +31,8 @@ export const isOffside = (
   const x = left + width
   const y = top + height
   const { x: borderX, y: borderY } = border
-
+  console.log(x)
+  console.log(y)
   // return false代表没有越界
   if (x >= 0 && x <= borderX && y >= 0 && y <= borderY) {
     return false

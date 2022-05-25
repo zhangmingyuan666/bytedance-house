@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:18
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 21:48:15
+ * @LastEditTime: 2022-05-25 09:26:02
  * @Description: 请填写简介
  */
 import { IDragElement } from './type'
@@ -40,7 +40,7 @@ export const BASE_DRAG_TEXT: IDragElement = {
   name: '',
   position: 'absolute',
   type: '',
-  content: '我是文字噢',
+  content: '我是文字',
   left: '',
   top: '',
   height: '',
@@ -58,8 +58,8 @@ export const BASE_DRAG_AUDIO: IDragElement = {
   content: require('@/global/audio/default-music.mp3'),
   left: '',
   top: '',
-  height: '500',
-  width: '1000',
+  height: '10%',
+  width: '30%',
   zIndex: 2,
 }
 
@@ -71,7 +71,7 @@ export const BASE_DRAG_VIDEO: IDragElement = {
   content: require('@/global/video/default-video.mp4'),
   left: '',
   top: '',
-  height: '100',
-  width: '100',
+  height: '40%',
+  width: '20%',
   zIndex: 2,
 }
