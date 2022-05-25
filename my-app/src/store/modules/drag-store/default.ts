@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:18
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-25 09:26:02
+ * @LastEditTime: 2022-05-25 10:27:24
  * @Description: 请填写简介
  */
 import { IDragElement } from './type'
@@ -71,7 +71,7 @@ export const BASE_DRAG_VIDEO: IDragElement = {
   content: require('@/global/video/default-video.mp4'),
   left: '',
   top: '',
-  height: '40%',
+  height: '20%',
   width: '20%',
   zIndex: 2,
 }

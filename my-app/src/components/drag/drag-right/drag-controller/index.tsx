@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:53:15
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-25 09:43:31
+ * @LastEditTime: 2022-05-25 11:31:09
  * @Description: 请填写简介
  */
 import SwitchType from './switch-formitem'
@@ -13,7 +13,7 @@ import { Form, Button } from '@arco-design/web-react'
 import { observer } from 'mobx-react-lite'
 import { formConfig } from './config'
 import { handleOffset } from '@/utils/drag-utils'
-
+import SwitchUpload from './switch-upload'
 
 const FormItem = Form.Item
 
@@ -53,8 +53,6 @@ const DragController: React.FC = () => {
     const localUrl = URL.createObjectURL(uploadFile)
     editDragElement({ ...dragStore.currentDragEle, content: localUrl })
   }
-
-  const TO_UPLOAD = ['img', 'audio', 'video']
   function GetForm() {
     return (
       <Form
@@ -63,13 +61,8 @@ const DragController: React.FC = () => {
         onValuesChange={(key, all) => handleValuesChange(key, all)}
         disabled={id ? false : true}
       >
-        {TO_UPLOAD.includes(curDragEle.type) ? (
-          <FormItem wrapperCol={{ offset: 5 }}>
-            <div>
-              <input type="file" onChange={e => onUpload(e)} />
-            </div>
-          </FormItem>
-        ) : null}
+        <SwitchUpload handleUpload={(e: any) => onUpload(e)} type={curDragEle.type}></SwitchUpload>
+
         {formConfig.map((config: any) => {
           const { field: key } = config
           if (dragElementConfigTableKeys.includes(key)) {
