@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:23:00
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 17:07:32
+ * @LastEditTime: 2022-05-25 22:41:53
  * @Description: 请填写简介
  */
 interface IDragElement {
@@ -16,7 +16,7 @@ interface IDragElement {
   width: string
   content: string //图片的url，文字的txt，其实就是资源的位置2
   zIndex: number // 这个用于设置文字层级
-  size?: number //这个用于设置文字的尺寸 h1 h2 h3
+  fontSize?: number //这个用于设置文字的尺寸 h1 h2 h3
   color?: string // 一些基础的CSS了
 }
 

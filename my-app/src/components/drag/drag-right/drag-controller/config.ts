@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-19 15:30:49
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-23 21:54:28
+ * @LastEditTime: 2022-05-25 22:44:14
  * @Description: 请填写简介
  */
 export type IFormItemType = 'input' | 'number' | 'select' | 'slider'
@@ -59,7 +59,7 @@ export const formConfig: IFormConfig[] = [
     type: 'slider',
   },
   {
-    field: 'size',
+    field: 'fontSize',
     label: '字体的大小',
     type: 'slider',
   },

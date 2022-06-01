@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-19 12:03:15
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 20:02:19
+ * @LastEditTime: 2022-05-25 22:42:45
  * @Description: 请填写简介
  */
 import { IDragElement } from '@/store/modules/drag-store/type'
@@ -17,7 +17,7 @@ type AppProps = {
 }
 
 const RendererSelector: React.FC<AppProps> = ({ config, isSelected = false }) => {
-  let { type, content, id, size, ...styleInfo } = config
+  let { type, content, id, fontSize, ...styleInfo } = config
   if (type === 'img') {
     return (
       <DragImage
@@ -32,7 +32,7 @@ const RendererSelector: React.FC<AppProps> = ({ config, isSelected = false }) =>
     return (
       <DragText
         content={content}
-        size={size}
+        fontSize={fontSize}
         key={id}
         style={styleInfo}
         id={id}
@@ -41,25 +41,11 @@ const RendererSelector: React.FC<AppProps> = ({ config, isSelected = false }) =>
     )
   } else if (type === 'audio') {
     return (
-      <DragAudio
-        content={content}
-        size={size}
-        key={id}
-        style={styleInfo}
-        id={id}
-        isSelected={isSelected}
-      />
+      <DragAudio content={content} key={id} style={styleInfo} id={id} isSelected={isSelected} />
     )
   } else if (type === 'video') {
     return (
-      <DragVideo
-        content={content}
-        size={size}
-        key={id}
-        style={styleInfo}
-        id={id}
-        isSelected={isSelected}
-      />
+      <DragVideo content={content} key={id} style={styleInfo} id={id} isSelected={isSelected} />
     )
   } else {
     return <h1>出现了问题</h1>

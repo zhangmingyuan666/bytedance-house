@@ -4,7 +4,7 @@ import { Message } from '@arco-design/web-react'
  * @Author: Ming
  * @Date: 2022-05-21 15:34:34
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-25 09:24:56
+ * @LastEditTime: 2022-05-25 22:46:56
  * @Description: 请填写简介
  */
 interface IPosition {
@@ -69,7 +69,7 @@ export const handleOffset = (beHandledObj: any, allObj: any, callback?: any) => 
       Message.info('GG!')
       return
     }
-  } else if (key === 'size') {
+  } else if (key === 'fontSize') {
     callback && callback()
     return
   } else {
