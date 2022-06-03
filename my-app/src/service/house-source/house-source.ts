@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-16 12:20:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-03 18:22:51
+ * @LastEditTime: 2022-06-03 21:14:32
  * @Description: 请填写简介
  */
 
@@ -22,6 +22,8 @@ export function getAllHouseSource() {
     url: HouseSourceAPI.allHouseSource,
   })
 }
+
+let a = 3
 
 export function getOnlyHouseSourceDetail(id: string) {
   return myRequest.get<any>({
