@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:23:00
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-25 22:41:53
+ * @LastEditTime: 2022-06-03 16:33:30
  * @Description: 请填写简介
  */
 interface IDragElement {
@@ -25,7 +25,12 @@ interface IPosition {
   y: number
 }
 
+interface IDragHistory {
+  json: string
+  jsonName: string
+}
+
 // 标识种类
 type DragType = '' | 'text' | 'img' | 'video' | 'housesource' | 'audio'
 
-export type { IDragElement, IPosition, DragType }
+export type { IDragElement, IPosition, DragType, IDragHistory }

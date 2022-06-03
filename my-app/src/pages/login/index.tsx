@@ -2,22 +2,28 @@
  * @Author: Ming
  * @Date: 2022-05-16 17:05:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-18 16:30:20
+ * @LastEditTime: 2022-06-03 13:01:34
  * @Description: 请填写简介
  */
 import * as React from 'react'
 import { Form, Input, Button, Checkbox } from '@arco-design/web-react'
 import { useNavigate } from 'react-router-dom'
+import { accountLoginRequest } from '@/service/login/login'
 
 const Login: React.FC = () => {
   const FormItem = Form.Item
   const [form] = Form.useForm()
 
   const navigate = useNavigate()
-  const submit = (e: any) => {
+  const submit = async (e: any) => {
     console.log(e)
     console.log('登陆成功')
-    navigate('/main')
+    const result = await accountLoginRequest({ ...e })
+
+    const { token } = result
+    if (token) {
+      navigate('/main')
+    }
   }
 
   return (
@@ -30,7 +36,7 @@ const Login: React.FC = () => {
             <FormItem label="Username" field="username">
               <Input placeholder="please enter your username..." />
             </FormItem>
-            <FormItem label="Post" field="post">
+            <FormItem label="Password" field="password">
               <Input placeholder="please enter your post..." />
             </FormItem>
             <FormItem

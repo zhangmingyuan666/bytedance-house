@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:53:15
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-25 11:31:09
+ * @LastEditTime: 2022-06-03 15:28:39
  * @Description: 请填写简介
  */
 import SwitchType from './switch-formitem'
@@ -48,10 +48,14 @@ const DragController: React.FC = () => {
 
   const removeDragElement = () => dragStore.removeExactDragElement(id, true)
 
-  const onUpload = (e: any) => {
-    const uploadFile = e.target.files[0]
-    const localUrl = URL.createObjectURL(uploadFile)
-    editDragElement({ ...dragStore.currentDragEle, content: localUrl })
+  const onUpload = (e: any, file: any) => {
+    // 第二个参数用于处理结果
+    console.log(file)
+    if (file.status === 'done') {
+      const remoteURL = file.response.filePath
+      editDragElement({ ...dragStore.currentDragEle, content: remoteURL })
+    }
+    //editDragElement({ ...dragStore.currentDragEle, content: remoteURL })
   }
   function GetForm() {
     return (
@@ -61,7 +65,10 @@ const DragController: React.FC = () => {
         onValuesChange={(key, all) => handleValuesChange(key, all)}
         disabled={id ? false : true}
       >
-        <SwitchUpload handleUpload={(e: any) => onUpload(e)} type={curDragEle.type}></SwitchUpload>
+        <SwitchUpload
+          handleUpload={(e: any, file: any) => onUpload(e, file)}
+          type={curDragEle.type}
+        ></SwitchUpload>
 
         {formConfig.map((config: any) => {
           const { field: key } = config

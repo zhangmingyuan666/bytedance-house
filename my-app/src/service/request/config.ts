@@ -1,12 +1,12 @@
-let BASE_URL = ''
-const TIME_OUT = 5000
+/*
+ * @Author: Ming
+ * @Date: 2022-05-16 12:20:55
+ * @LastEditors: Ming
+ * @LastEditTime: 2022-06-02 17:20:37
+ * @Description: 请填写简介
+ */
 
-if (process.env.NODE_ENV === 'development') {
-  BASE_URL = 'http://localhost:3000'
-} else if (process.env.NODE_ENV === 'production') {
-  BASE_URL = 'sina.com'
-} else {
-  BASE_URL = 'test'
-}
+const TIME_OUT = 5000
+const BASE_URL = 'http://180.184.74.142'
 
 export { BASE_URL, TIME_OUT }

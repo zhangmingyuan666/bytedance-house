@@ -2,20 +2,24 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 23:24:46
+ * @LastEditTime: 2022-06-03 17:24:17
  * @Description: 请填写简介
  */
-import { makeAutoObservable, observable } from 'mobx'
+import { action, makeAutoObservable, observable } from 'mobx'
 import { BASE_DRAG_EMPTY } from './default'
-import { DragType, IDragElement, IPosition } from './type'
+import { DragType, IDragElement, IDragHistory, IPosition } from './type'
 import { switchInitType, connectNearestMap, deleteNearestMap } from './utils'
 import { transformPositionPercentToPx, transformPositionPxToPercent } from '@/utils/common'
+
 import { nanoid } from 'nanoid'
 import { BORDER_SIZE } from '@/global/default/drag/default'
+import { dragMessagePost, getDragHistoryDetail, getDragHistoryList } from '@/service/drag/drag'
+import { IDragMessagePost } from '@/service/drag/type'
 
 class Drag {
   currentDragEle: IDragElement = BASE_DRAG_EMPTY // 当前选择的 dragElemt
   resultDragList: IDragElement[] = [] // 所有的DragElment集合
+  dragHistoryList: any = []
   containerRefFn: any = null // 此处传入容器的Ref
   containerRefSize: IPosition = {
     x: 500,
@@ -29,6 +33,21 @@ class Drag {
 
   leftMap = observable(new Map<number, number>()) // 维护left的哈希表
   topMap = observable(new Map<number, number>()) // 维护top的哈希表
+
+  // 异步请求数据
+  getDragHistoryListAction = async () => {
+    const result = await getDragHistoryList()
+    this.setDragHistoryList(result)
+  }
+
+  //此处用于选中HistoryDetail
+  jumpToHistoryDetail = async (id: string) => {
+    const result = await getDragHistoryDetail(id)
+    let { data, canvasProportion, author } = JSON.parse(result.json)
+    console.log(JSON.parse(result.json))
+    console.log(data)
+    this.setResultDragList(data)
+  }
 
   constructor() {
     makeAutoObservable(this)
@@ -62,6 +81,11 @@ class Drag {
     this.containerRefSize.y = height
   }
 
+  // 此处设置history
+  setDragHistoryList = (config: any) => {
+    this.dragHistoryList = [...config]
+  }
+
   initDragElementConfig = () => {
     this.setDragElementConfig(BASE_DRAG_EMPTY)
   }
@@ -69,6 +93,11 @@ class Drag {
   //一次设置所有
   setDragElementConfig = (config: IDragElement) => {
     this.currentDragEle = { ...config }
+  }
+
+  // 通过特定的key来改变IDragElemnt
+  setDragElementContent(value: string) {
+    this.currentDragEle.content = value
   }
 
   //渲染成功，将当前列表push进
@@ -180,6 +209,13 @@ class Drag {
     connectNearestMap(this.leftMap, +left.split('%')[0], 10)
     connectNearestMap(this.topMap, +top.split('%')[0], 10)
     this.addResElement()
+  }
+
+  //直接设置list
+  setResultDragList(result: IDragElement[]) {
+    console.log(result)
+    console.log('---')
+    this.resultDragList = [...result]
   }
 }
 

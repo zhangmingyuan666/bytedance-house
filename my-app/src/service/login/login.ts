@@ -2,22 +2,20 @@
  * @Author: Ming
  * @Date: 2022-05-21 19:25:58
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-21 20:58:33
+ * @LastEditTime: 2022-06-02 17:32:24
  * @Description: 请填写简介
  */
-// import hyRequest from '../index'
-// import { IAccount, IDataType, ILoginResult } from './type'
+import myRequest from '../index'
+import { IAccount, ILoginResult } from './type'
 
-// enum LoginAPI {
-//   AccountLogin = '/login',
-//   LoginUserInfoDetail = '/users/',
-//   userMenus = '/role/',
-// }
+enum LoginAPI {
+  AccountLogin = '/agent/login',
+}
 
-// export function accountLoginRequest(account: IAccount) {
-//   return hyRequest.post<IDataType<ILoginResult>>({
-//     url: LoginAPI.AccountLogin,
-//     data: account,
-//   })
-// }
+export function accountLoginRequest(account: IAccount) {
+  return myRequest.post<ILoginResult>({
+    url: LoginAPI.AccountLogin,
+    data: account,
+  })
+}
 export {}

@@ -30,7 +30,7 @@ class MyRequest {
 
     //下方两个是默认的方法
     this.instance.interceptors.request.use(
-      (config) => {
+      config => {
         console.log('所有实例请求拦截成功')
 
         if (this.showLoading) {
@@ -40,23 +40,23 @@ class MyRequest {
           //   background: 'rgba(0, 0, 0, 0.5)'
           // })
         }
-
         return config
       },
-      (err) => {
+      err => {
         console.log('所有实例请求拦截失败')
         return err
       }
     )
 
     this.instance.interceptors.response.use(
-      (res) => {
+      res => {
         console.log('所有响应拦截成功')
         //this.loading?.close()
         //在这里处理信息的拦截
+        console.log(res)
         return res.data ?? res
       },
-      (err) => {
+      err => {
         console.log('所有实例响应拦截失败')
         //this.loading?.close()
         //在这里处理错误的处理

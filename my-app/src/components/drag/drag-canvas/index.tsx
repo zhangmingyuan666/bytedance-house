@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:37:07
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-25 10:26:05
+ * @LastEditTime: 2022-06-03 18:14:02
  * @Description: 请填写简介
  */
 import * as React from 'react'
@@ -12,6 +12,7 @@ import { useStores } from '@/store'
 import CanvasRenderer from './canvas-renderer'
 import { BORDER_SIZE } from '@/global/default/drag/default'
 import { ResizeBox, Statistic } from '@arco-design/web-react'
+import HouseSourceChooser from './house-choose'
 const DragCanvas: React.FC = () => {
   const { dragStore } = useStores()
   const { getContainerProportion, containerRefSize } = dragStore
@@ -58,6 +59,7 @@ const DragCanvas: React.FC = () => {
       >
         <CanvasRenderer dragElementList={dragElementList} curSelectedId={curSelectedId} />
       </ResizeBox>
+      <HouseSourceChooser />
     </div>
   )
 }
