@@ -2,14 +2,15 @@
  * @Author: Ming
  * @Date: 2022-05-21 19:25:58
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-02 17:32:24
+ * @LastEditTime: 2022-06-04 01:22:03
  * @Description: 请填写简介
  */
 import myRequest from '../index'
-import { IAccount, ILoginResult } from './type'
+import { IAccount, IAccountRegister, ILoginResult } from './type'
 
 enum LoginAPI {
   AccountLogin = '/agent/login',
+  AccountRegister = '/agent/registerAgent',
 }
 
 export function accountLoginRequest(account: IAccount) {
@@ -18,4 +19,10 @@ export function accountLoginRequest(account: IAccount) {
     data: account,
   })
 }
-export {}
+
+export function accountRegisterRequest(account: IAccountRegister) {
+  return myRequest.post<any>({
+    url: LoginAPI.AccountRegister,
+    data: account,
+  })
+}

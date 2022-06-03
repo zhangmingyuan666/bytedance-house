@@ -2,10 +2,10 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-03 17:24:17
+ * @LastEditTime: 2022-06-04 00:55:49
  * @Description: 请填写简介
  */
-import { action, makeAutoObservable, observable } from 'mobx'
+import { action, makeAutoObservable, observable, toJS } from 'mobx'
 import { BASE_DRAG_EMPTY } from './default'
 import { DragType, IDragElement, IDragHistory, IPosition } from './type'
 import { switchInitType, connectNearestMap, deleteNearestMap } from './utils'
@@ -14,12 +14,14 @@ import { transformPositionPercentToPx, transformPositionPxToPercent } from '@/ut
 import { nanoid } from 'nanoid'
 import { BORDER_SIZE } from '@/global/default/drag/default'
 import { dragMessagePost, getDragHistoryDetail, getDragHistoryList } from '@/service/drag/drag'
-import { IDragMessagePost } from '@/service/drag/type'
+import { IDragFormInput, IDragMessageJSON, IDragMessagePost } from '@/service/drag/type'
 
 class Drag {
+  id: string = ''
   currentDragEle: IDragElement = BASE_DRAG_EMPTY // 当前选择的 dragElemt
   resultDragList: IDragElement[] = [] // 所有的DragElment集合
   dragHistoryList: any = []
+  houseSourceId: string = ''
   containerRefFn: any = null // 此处传入容器的Ref
   containerRefSize: IPosition = {
     x: 500,
@@ -41,16 +43,40 @@ class Drag {
   }
 
   //此处用于选中HistoryDetail
-  jumpToHistoryDetail = async (id: string) => {
-    const result = await getDragHistoryDetail(id)
-    let { data, canvasProportion, author } = JSON.parse(result.json)
+  jumpToHistoryDetail = async (HistoryDetailId: string) => {
+    const result = await getDragHistoryDetail(HistoryDetailId)
+    const id = result.id
+    let { data, canvasProportion, houseSourceId } = JSON.parse(result.json)
+    this.houseSourceId = houseSourceId
+    this.setContainerRefSize(+canvasProportion * 500)
+    this.setHouseSourceId(houseSourceId)
+    this.setId(id)
+    console.log(this.id)
     console.log(JSON.parse(result.json))
     console.log(data)
     this.setResultDragList(data)
   }
 
+  postFinalDragResult = async (formRes: IDragFormInput) => {
+    const requestConfig: IDragMessageJSON = {
+      houseSourceId: this.houseSourceId,
+      canvasProportion: this.getContainerProportion,
+      date: new Date(),
+      data: this.resultDragList,
+      ...formRes,
+    }
+    console.log(requestConfig)
+    const result = await dragMessagePost({ json: JSON.stringify(requestConfig), id: this.id })
+    return result
+  }
+
   constructor() {
     makeAutoObservable(this)
+  }
+
+  // isExisted ? 用于判断这个是否已经存在,如果有说明存在
+  setId(id: string) {
+    this.id = id
   }
 
   get getPositionPercentToNumber() {
@@ -98,6 +124,11 @@ class Drag {
   // 通过特定的key来改变IDragElemnt
   setDragElementContent(value: string) {
     this.currentDragEle.content = value
+  }
+
+  // 设置houseSourceId
+  setHouseSourceId(id: string) {
+    this.houseSourceId = id
   }
 
   //渲染成功，将当前列表push进

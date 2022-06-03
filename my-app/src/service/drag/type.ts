@@ -6,9 +6,15 @@ export interface IDragMessagePost {
 }
 
 export interface IDragMessageJSON {
+  houseSourceId: string
   author: string
   canvasProportion: string
   date: Date
   name: string
   data: IDragElement[]
+}
+
+export interface IDragFormInput {
+  author: string
+  name: string
 }

@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-16 23:23:23
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-03 17:12:25
+ * @LastEditTime: 2022-06-04 00:34:00
  * @Description: 请填写简介
  */
 import { useStores } from '@/store'
@@ -25,9 +25,7 @@ const MainDragHistory: React.FC = () => {
         dataSource={dragHistoryList}
         render={(item, index) => (
           <List.Item key={index}>
-            <div onClick={() => jumpToHistoryDetail(item.jsonId)}>
-              {item.jsonName} {1}
-            </div>
+            <div onClick={() => jumpToHistoryDetail(item.jsonId)}>{item.jsonName}</div>
           </List.Item>
         )}
       ></List>
