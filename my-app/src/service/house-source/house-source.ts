@@ -2,13 +2,11 @@
  * @Author: Ming
  * @Date: 2022-05-16 12:20:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-03 21:15:33
+ * @LastEditTime: 2022-06-04 01:24:34
  * @Description: 请填写简介
  */
 
-import { IDragHistory } from '@/store/modules/drag-store/type'
 import myRequest from '../index'
-import { IHouseSource } from './type'
 
 enum HouseSourceAPI {
   allHouseSource = '/agent/getHouseList',

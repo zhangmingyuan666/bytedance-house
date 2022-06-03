@@ -31,8 +31,12 @@ const DragAdmin: React.FC = () => {
               }}
             >
               {finalTree.map((treeChild: IDragElement) => {
-                const { id, type } = treeChild
-                return <TreeNode title={type} key={id}></TreeNode>
+                const { id, type, name } = treeChild
+                return name ? (
+                  <TreeNode title={name} key={id}></TreeNode>
+                ) : (
+                  <TreeNode title={type} key={id}></TreeNode>
+                )
               })}
             </Tree>
           )}

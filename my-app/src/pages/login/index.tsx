@@ -2,13 +2,11 @@
  * @Author: Ming
  * @Date: 2022-05-16 17:05:55
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-04 01:18:20
+ * @LastEditTime: 2022-06-04 01:23:48
  * @Description: 请填写简介
  */
 import * as React from 'react'
-import { Form, Input, Button, Checkbox } from '@arco-design/web-react'
-import { useNavigate } from 'react-router-dom'
-import { accountLoginRequest } from '@/service/login/login'
+import { Button } from '@arco-design/web-react'
 import LoginForm from './login-form'
 
 const Login: React.FC = () => {
