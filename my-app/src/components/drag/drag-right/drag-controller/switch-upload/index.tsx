@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-25 11:04:48
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-04 21:06:52
+ * @LastEditTime: 2022-06-04 21:27:56
  * @Description: 请填写简介
  */
 import { DragType } from '@/store/modules/drag-store/type'
@@ -15,42 +15,34 @@ type AppProps = {
 }
 
 const SwitchUpload: React.FC<AppProps> = ({ type, handleUpload }) => {
-  if (type === 'img') {
-    return (
-      <FormItem wrapperCol={{ offset: 5 }}>
-        <Upload
-          action="http://180.184.74.142/file/uploadFile"
-          multiple
-          accept="image/png, image/jpeg"
-          onChange={(e: any, file: any) => handleUpload(e, file)}
-        ></Upload>
-      </FormItem>
-    )
-  } else if (type === 'video') {
-    return (
-      <FormItem wrapperCol={{ offset: 5 }}>
-        <Upload
-          action="http://180.184.74.142/file/uploadFile"
-          multiple
-          accept="video/mp4"
-          onChange={(e: any, file: any) => handleUpload(e, file)}
-        ></Upload>
-      </FormItem>
-    )
-  } else if (type === 'audio') {
-    return (
-      <FormItem wrapperCol={{ offset: 5 }}>
-        <Upload
-          action="http://180.184.74.142/file/uploadFile"
-          multiple
-          accept="audio/mp3"
-          onChange={(e: any, file: any) => handleUpload(e, file)}
-        ></Upload>
-      </FormItem>
-    )
-  } else {
-    return null
+  const getAllowedType = () => {
+    let selectType = ''
+    switch (type) {
+      case 'img':
+        selectType = 'image/png, image/jpeg'
+        break
+      case 'video':
+        selectType = 'video/mp4'
+        break
+      case 'audio':
+        selectType = 'audio/mp3'
+        break
+      default:
+        throw Error('你传入了一个错误的类型')
+    }
+
+    return selectType
   }
+  return type ? (
+    <FormItem wrapperCol={{ offset: 5 }}>
+      <Upload
+        action="http://180.184.74.142:30001/file/uploadFile"
+        multiple
+        accept={getAllowedType()}
+        onChange={(e: any, file: any) => handleUpload(e, file)}
+      ></Upload>
+    </FormItem>
+  ) : null
 }
 
 export default SwitchUpload

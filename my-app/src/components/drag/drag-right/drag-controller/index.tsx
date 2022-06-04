@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:53:15
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-04 01:41:05
+ * @LastEditTime: 2022-06-04 21:16:42
  * @Description: 请填写简介
  */
 import SwitchType from './switch-formitem'
@@ -52,7 +52,9 @@ const DragController: React.FC = () => {
     // 第二个参数用于处理结果
     console.log(file)
     if (file.status === 'done') {
-      const remoteURL = file.response.filePath
+      const remoteURLSplit = file.response.filePath.split('/')
+      remoteURLSplit[remoteURLSplit.length - 2] += ':30001'
+      const remoteURL = remoteURLSplit.join('/')
       editDragElement({ ...dragStore.currentDragEle, content: remoteURL })
     }
     //editDragElement({ ...dragStore.currentDragEle, content: remoteURL })
