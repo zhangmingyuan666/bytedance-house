@@ -2,14 +2,12 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:47:58
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-25 22:39:59
+ * @LastEditTime: 2022-06-04 21:06:39
  * @Description: 请填写简介
  */
 import * as React from 'react'
 import MingCard from '@/base-ui/card'
-import { Divider } from '@arco-design/web-react'
 import beDragComponents from '../../be-dragged-element' // 导入的允许拖动的列表
-import DragImage from '../../be-dragged-element/drag-img'
 import { DRAG_ELEMENT_SIZE } from '@/global/default/drag/default'
 
 const DragArea: React.FC = () => {

@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-17 15:37:07
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-03 18:14:02
+ * @LastEditTime: 2022-06-04 21:05:56
  * @Description: 请填写简介
  */
 import * as React from 'react'
@@ -10,7 +10,6 @@ import { observer } from 'mobx-react-lite'
 import './index.css'
 import { useStores } from '@/store'
 import CanvasRenderer from './canvas-renderer'
-import { BORDER_SIZE } from '@/global/default/drag/default'
 import { ResizeBox, Statistic } from '@arco-design/web-react'
 import HouseSourceChooser from './house-choose'
 const DragCanvas: React.FC = () => {

@@ -2,11 +2,11 @@
  * @Author: Ming
  * @Date: 2022-05-25 11:04:48
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-03 17:52:02
+ * @LastEditTime: 2022-06-04 21:06:52
  * @Description: 请填写简介
  */
 import { DragType } from '@/store/modules/drag-store/type'
-import { Button, Form, Upload } from '@arco-design/web-react'
+import { Form, Upload } from '@arco-design/web-react'
 import * as React from 'react'
 const FormItem = Form.Item
 type AppProps = {

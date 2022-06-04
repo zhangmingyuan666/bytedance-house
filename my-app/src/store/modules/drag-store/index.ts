@@ -2,19 +2,18 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-04 00:55:49
+ * @LastEditTime: 2022-06-04 21:00:46
  * @Description: 请填写简介
  */
-import { action, makeAutoObservable, observable, toJS } from 'mobx'
+import { makeAutoObservable, observable } from 'mobx'
 import { BASE_DRAG_EMPTY } from './default'
-import { DragType, IDragElement, IDragHistory, IPosition } from './type'
+import { DragType, IDragElement, IPosition } from './type'
 import { switchInitType, connectNearestMap, deleteNearestMap } from './utils'
-import { transformPositionPercentToPx, transformPositionPxToPercent } from '@/utils/common'
-
+import { transformPositionPxToPercent } from '@/utils/common'
 import { nanoid } from 'nanoid'
-import { BORDER_SIZE } from '@/global/default/drag/default'
+// import { BORDER_SIZE } from '@/global/default/drag/default'
 import { dragMessagePost, getDragHistoryDetail, getDragHistoryList } from '@/service/drag/drag'
-import { IDragFormInput, IDragMessageJSON, IDragMessagePost } from '@/service/drag/type'
+import { IDragFormInput, IDragMessageJSON } from '@/service/drag/type'
 
 class Drag {
   id: string = ''
