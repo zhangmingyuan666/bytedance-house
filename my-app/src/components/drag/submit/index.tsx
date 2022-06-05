@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-06-03 22:51:28
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-04 00:31:14
+ * @LastEditTime: 2022-06-05 12:41:46
  * @Description: 请填写简介
  */
 import * as React from 'react'
@@ -26,9 +26,11 @@ const DragSubmit: React.FC = () => {
       const result = await postFinalDragResult(res)
       const { id } = result
       if (id) {
-        Message.success('Success !')
+        Message.success('上传成功')
         setVisible(false)
         setConfirmLoading(false)
+      }else{
+        Message.error('上传失败')
       }
     })
   }

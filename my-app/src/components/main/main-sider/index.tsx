@@ -1,3 +1,10 @@
+/*
+ * @Author: Ming
+ * @Date: 2022-05-16 20:20:13
+ * @LastEditors: Ming
+ * @LastEditTime: 2022-06-05 12:43:12
+ * @Description: 请填写简介
+ */
 import * as React from 'react'
 import { Menu, Message } from '@arco-design/web-react'
 import { IconBytedanceColor } from '@arco-design/web-react/icon'
@@ -17,12 +24,7 @@ const MainSider: React.FC = () => {
   //此处渲染menu
   return (
     <div>
-      <Menu
-        defaultOpenKeys={defaultOpenKeys}
-        defaultSelectedKeys={key}
-        onClickMenuItem={key => Message.info({ content: `You select ${key}`, showIcon: true })}
-        style={{ width: '100%' }}
-      >
+      <Menu defaultOpenKeys={defaultOpenKeys} defaultSelectedKeys={key} className="w-1">
         <MenuItem key="logo" disabled>
           <IconBytedanceColor></IconBytedanceColor>
           '广深group'

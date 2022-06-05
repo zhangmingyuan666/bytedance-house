@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 12:17:17
  * @LastEditors: Ming
- * @LastEditTime: 2022-05-24 23:41:15
+ * @LastEditTime: 2022-06-05 11:22:46
  * @Description: 这里是drag专用的hooks
  */
 import * as React from 'react'
@@ -10,14 +10,8 @@ import { DragType } from '@/store/modules/drag-store/type'
 import { useStores } from '@/store'
 import { transformPositionPercentToPx, transformPositionPxToPercent } from '@/utils/common'
 import { Message } from '@arco-design/web-react'
-import { BORDER_SIZE, DRAG_ELEMENT_SIZE } from '@/global/default/drag/default'
 import { isOffside } from '@/utils/drag-utils'
 import { switchInitType } from '@/store/modules/drag-store/utils'
-
-// 此处的target是尺寸
-const transformPosition = (target: string) => {
-  return transformPositionPercentToPx(500, target)
-}
 
 /**
  * @description:
@@ -69,12 +63,9 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
     let dragElementWidth
     if (id) {
       // 如果这个节点已经被创建了
-      console.log('has')
-      console.log(Ref.current.offsetWidth, Ref.current.offsetHeight)
       dragElementHeight = Ref.current.offsetHeight
       dragElementWidth = Ref.current.offsetWidth
     } else {
-      console.log('not has')
       // 如果这个节点还没有被创建
       // 配置初始化
       let nowConfig = switchInitType(type)
@@ -113,10 +104,10 @@ const useDrag = (curRef: React.RefObject<HTMLDivElement>, type: DragType) => {
     let finalX = clientX - containerPositionX - clickX // px
     let finalY = clientY - containerPositionY - clickY // px
 
-    console.log('finalX：', finalX)
-    console.log('finalY：', finalY)
-    console.log('beDragedElePositionX:', dragElementWidth)
-    console.log('beDragedElePositionY:', dragElementHeight)
+    // console.log('finalX：', finalX)
+    // console.log('finalY：', finalY)
+    // console.log('beDragedElePositionX:', dragElementWidth)
+    // console.log('beDragedElePositionY:', dragElementHeight)
     return { dragElementWidth, dragElementHeight, finalX, finalY }
   }
 

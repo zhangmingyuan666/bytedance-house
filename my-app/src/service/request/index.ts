@@ -3,9 +3,9 @@ import axios from 'axios'
 // import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
 import type { AxiosInstance } from 'axios'
 import type { HyRequestInterceptors, HyRequestConfig } from './type'
+import { Message } from '@arco-design/web-react'
 
 const DEFAULT_LOADING = true
-
 class MyRequest {
   instance: AxiosInstance
   interceptors?: HyRequestInterceptors
@@ -50,10 +50,22 @@ class MyRequest {
 
     this.instance.interceptors.response.use(
       res => {
+        const { status, response } = res.request
+        console.log(status, response)
+        if (status !== 200) {
+          if (response === '') {
+            Message.error('网络错误')
+          }
+          if (response) {
+            Message.error(response)
+          }
+          return
+        }
         console.log('所有响应拦截成功')
         //this.loading?.close()
         //在这里处理信息的拦截
         console.log(res)
+
         return res.data ?? res
       },
       err => {
@@ -84,7 +96,7 @@ class MyRequest {
       //执行当前请求
       this.instance
         .request<any, T>(config)
-        .then((res) => {
+        .then(res => {
           //1. 单个请求对数据的处理
           if (config.interceptors?.responseInterceptors) {
             res = config.interceptors.responseInterceptors(res)
@@ -96,7 +108,7 @@ class MyRequest {
           console.log(res)
           reslove(res)
         })
-        .catch((err) => {
+        .catch(err => {
           //不要影响下次请求
           this.showLoading = DEFAULT_LOADING
           reject(err)

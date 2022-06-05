@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-18 10:22:10
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-04 21:00:46
+ * @LastEditTime: 2022-06-05 12:33:19
  * @Description: 请填写简介
  */
 import { makeAutoObservable, observable } from 'mobx'
@@ -44,16 +44,19 @@ class Drag {
   //此处用于选中HistoryDetail
   jumpToHistoryDetail = async (HistoryDetailId: string) => {
     const result = await getDragHistoryDetail(HistoryDetailId)
-    const id = result.id
-    let { data, canvasProportion, houseSourceId } = JSON.parse(result.json)
+    const { id, json } = result
+    let { data, canvasProportion, houseSourceId } = JSON.parse(json)
+
+    // 下面是进行覆盖的操作
     this.houseSourceId = houseSourceId
     this.setContainerRefSize(+canvasProportion * 500)
     this.setHouseSourceId(houseSourceId)
     this.setId(id)
-    console.log(this.id)
-    console.log(JSON.parse(result.json))
-    console.log(data)
     this.setResultDragList(data)
+
+    console.log(JSON.parse(json))
+
+    return result
   }
 
   postFinalDragResult = async (formRes: IDragFormInput) => {
