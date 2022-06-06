@@ -2,7 +2,7 @@
  * @Author: Ming
  * @Date: 2022-05-25 11:04:48
  * @LastEditors: Ming
- * @LastEditTime: 2022-06-04 21:27:56
+ * @LastEditTime: 2022-06-06 23:05:45
  * @Description: 请填写简介
  */
 import { DragType } from '@/store/modules/drag-store/type'
@@ -15,8 +15,11 @@ type AppProps = {
 }
 
 const SwitchUpload: React.FC<AppProps> = ({ type, handleUpload }) => {
+  console.log(type)
+  console.log(123123123)
   const getAllowedType = () => {
     let selectType = ''
+    console.log(type)
     switch (type) {
       case 'img':
         selectType = 'image/png, image/jpeg'
@@ -28,12 +31,13 @@ const SwitchUpload: React.FC<AppProps> = ({ type, handleUpload }) => {
         selectType = 'audio/mp3'
         break
       default:
-        throw Error('你传入了一个错误的类型')
+        break
     }
 
     return selectType
   }
-  return type ? (
+
+  return getAllowedType() ? (
     <FormItem wrapperCol={{ offset: 5 }}>
       <Upload
         action="http://180.184.74.142:30001/file/uploadFile"
